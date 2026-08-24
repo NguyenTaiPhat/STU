@@ -92,7 +92,14 @@ function stuLiveBridgePlugin(): Plugin {
                   roles: userObj.roles,
                   rawId: idsv,
                   dob: svInfo?.ngay_sinh || '',
-                  gender: svInfo?.gioi_tinh || 'Nam',
+                  gender: (function(raw: any): 'Nam' | 'Nữ' {
+                    if (raw === undefined || raw === null || raw === '') return 'Nam';
+                    const str = String(raw).trim().toLowerCase();
+                    if (str === '0' || str === 'nữ' || str === 'nu' || str === 'female' || str === 'gái' || raw === false) {
+                      return 'Nữ';
+                    }
+                    return 'Nam';
+                  })(svInfo?.gioi_tinh),
                   citizenId: svInfo?.so_cmnd || '',
                   classCode: svInfo?.lop || '',
                   major: svInfo?.nganh || '',

@@ -36,7 +36,7 @@ export interface StudentProfile {
   id: string;
   fullName: string;
   dob: string;
-  gender: 'Nam' | 'Nu';
+  gender: 'Nam' | 'Nữ';
   citizenId?: string;
   status?: string;
   classCode: string;

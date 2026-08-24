@@ -16,7 +16,7 @@ import { RegistrationView } from './views/RegistrationView';
 import { FinanceView } from './views/FinanceView';
 import { ProfileView } from './views/ProfileView';
 import { NotificationsView } from './views/NotificationsView';
-import { fetchAndApplyLiveSTUData } from './services/stuLiveService';
+import { fetchAndApplyLiveSTUData, startAutoSyncPolling, stopAutoSyncPolling } from './services/stuLiveService';
 
 // Hủy đăng ký toàn bộ Service Worker cũ trên localhost:3000
 if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
@@ -83,7 +83,9 @@ function bootstrap(): void {
         activeLoginView = null;
       }
       renderAppShell(app);
+      startAutoSyncPolling(15);
     } else {
+      stopAutoSyncPolling();
       renderLoginScreen(app);
     }
   };

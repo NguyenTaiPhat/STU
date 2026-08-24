@@ -29,6 +29,38 @@ export interface LiveSyncResult {
   };
 }
 
+let autoSyncTimer: any = null;
+
+export function parseGender(raw: any): 'Nam' | 'Nữ' {
+  if (raw === undefined || raw === null || raw === '') return 'Nam';
+  const str = String(raw).trim().toLowerCase();
+  if (str === '0' || str === 'nữ' || str === 'nu' || str === 'female' || str === 'gái' || raw === false) {
+    return 'Nữ';
+  }
+  return 'Nam';
+}
+
+export function startAutoSyncPolling(intervalSeconds: number = 15): void {
+  stopAutoSyncPolling();
+  const intervalMs = Math.max(5000, intervalSeconds * 1000);
+  autoSyncTimer = setInterval(() => {
+    const s = stateStore.getState();
+    if (!s.isAuthenticated || s.isLiveSyncing) return;
+    const u = localStorage.getItem('stu_amis_auth_user');
+    const p = localStorage.getItem('stu_user_password');
+    if (u && p) {
+      fetchAndApplyLiveSTUData(u, p).catch(() => {});
+    }
+  }, intervalMs);
+}
+
+export function stopAutoSyncPolling(): void {
+  if (autoSyncTimer) {
+    clearInterval(autoSyncTimer);
+    autoSyncTimer = null;
+  }
+}
+
 export async function fetchAndApplyLiveSTUData(
   username?: string,
   password?: string
@@ -68,14 +100,12 @@ export async function fetchAndApplyLiveSTUData(
 function applyLivePayloadToStore(live: LiveSyncResult): void {
   const s = stateStore.getState();
 
-  const isFemale = live.user.gender === 'Nữ' || live.user.gender === 'Nu' || live.user.gender === 'Female';
-
   const profile = {
     ...s.profile,
     id: live.user.id || s.profile.id,
     fullName: live.user.fullName || s.profile.fullName,
     dob: live.user.dob || s.profile.dob,
-    gender: (isFemale ? 'Nu' : 'Nam') as 'Nam' | 'Nu',
+    gender: parseGender(live.user.gender),
     citizenId: live.user.citizenId || s.profile.citizenId,
     classCode: live.user.classCode || s.profile.classCode,
     major: live.user.major || s.profile.major,
