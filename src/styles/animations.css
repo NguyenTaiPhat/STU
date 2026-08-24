@@ -1,0 +1,329 @@
+/* ==========================================================================
+   STU AMIS - MOTION DESIGN SYSTEM & KEYFRAMES (GPU ACCELERATED)
+   ========================================================================== */
+
+/* 1. KEYFRAME DEFINITIONS */
+@keyframes animFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes animFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes animFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animFadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes animFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes animFadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes animScaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes animPulseLive {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes animPulsePrimary {
+  0% {
+    box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(2, 132, 199, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(2, 132, 199, 0);
+  }
+}
+
+@keyframes animBreathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes animFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes animSpinLinear {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animErrorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-6px);
+  }
+  40%, 80% {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes animRipple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes animShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes animHighlightGlow {
+  0% {
+    background-color: var(--neo-primary-light);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* 2. UTILITY CLASSES FOR MOTIONS */
+.anim-fade-in {
+  animation: animFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in-up {
+  animation: animFadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in-down {
+  animation: animFadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in-left {
+  animation: animFadeInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in-right {
+  animation: animFadeInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in-scale {
+  animation: animFadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-pulse-live {
+  animation: animPulseLive 2.2s infinite;
+}
+
+.anim-pulse-primary {
+  animation: animPulsePrimary 2s infinite;
+}
+
+.anim-breathe {
+  animation: animBreathe 3.5s ease-in-out infinite;
+}
+
+.anim-float {
+  animation: animFloat 3s ease-in-out infinite;
+}
+
+.anim-spin {
+  animation: animSpinLinear 1s linear infinite;
+}
+
+.anim-shake {
+  animation: animErrorShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.anim-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: animShimmer 1.8s infinite;
+}
+
+/* Stagger Delays (50ms increments up to 10 items) */
+.anim-delay-1  { animation-delay: 40ms; }
+.anim-delay-2  { animation-delay: 80ms; }
+.anim-delay-3  { animation-delay: 120ms; }
+.anim-delay-4  { animation-delay: 160ms; }
+.anim-delay-5  { animation-delay: 200ms; }
+.anim-delay-6  { animation-delay: 240ms; }
+.anim-delay-7  { animation-delay: 280ms; }
+.anim-delay-8  { animation-delay: 320ms; }
+.anim-delay-9  { animation-delay: 360ms; }
+.anim-delay-10 { animation-delay: 400ms; }
+
+/* 3. INTERACTIVE RIPPLE EFFECT */
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: animRipple 0.55s linear;
+  pointer-events: none;
+}
+
+/* 4. PAGE TRANSITION STATES FOR ROUTER */
+.view-transition-enter {
+  animation: animFadeInUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.view-transition-exit {
+  animation: animScaleOut 0.14s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 5. SMOOTH THEME TRANSITION */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, fill 0.25s ease !important;
+  transition-delay: 0s !important;
+}
+
+/* 6. MOBILE ANIMATION OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .anim-fade-in-up {
+    animation: animFadeInUpMobile 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .anim-fade-in-scale {
+    animation: animFadeInScaleMobile 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .anim-fade-in-left {
+    animation: animFadeInLeftMobile 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .anim-fade-in-right {
+    animation: animFadeInRightMobile 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .view-transition-enter {
+    animation: animFadeInUpMobile 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes animFadeInUpMobile {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes animFadeInScaleMobile {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes animFadeInLeftMobile {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes animFadeInRightMobile {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* 7. ACCESSIBILITY OVERRIDES (REDUCED MOTION) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

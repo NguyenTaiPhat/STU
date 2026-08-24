@@ -1,0 +1,16 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "regions": ["sin1"],
+  "rewrites": [
+    {
+      "source": "/stu-api/sync-all",
+      "destination": "/api/sync-all"
+    },
+    {
+      "source": "/((?!api/|stu-api/|assets/|public/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

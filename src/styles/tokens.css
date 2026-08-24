@@ -1,0 +1,114 @@
+:root,
+[data-theme="light"] {
+  --neo-bg: #F8FAFC;
+  --neo-bg-secondary: #F1F5F9;
+  --neo-text: #0F172A;
+  --neo-text-secondary: #64748B;
+  --neo-border-color: #E2E8F0;
+  --neo-card-bg: #FFFFFF;
+  --neo-sidebar-bg: #FFFFFF;
+  --neo-header-bg: rgba(255, 255, 255, 0.88);
+  --neo-input-bg: #FFFFFF;
+  --neo-table-stripe: #F8FAFC;
+  --neo-overlay: rgba(15, 23, 42, 0.45);
+
+  --neo-primary: #0284C7;
+  --neo-primary-hover: #0369A1;
+  --neo-primary-light: #E0F2FE;
+  --neo-primary-text: #0284C7;
+
+  --neo-cyan: #06B6D4;
+  --neo-cyan-light: #ECFEFF;
+
+  --neo-coral: #EF4444;
+  --neo-coral-light: #FEF2F2;
+
+  --neo-lime: #10B981;
+  --neo-lime-light: #ECFDF5;
+  --neo-lime-text: #059669;
+
+  --neo-lavender: #8B5CF6;
+  --neo-lavender-light: #F5F3FF;
+
+  --neo-primary-alpha: rgba(2, 132, 199, 0.08);
+  --neo-cyan-alpha: rgba(6, 182, 212, 0.08);
+  --neo-coral-alpha: rgba(239, 68, 68, 0.08);
+  --neo-lime-alpha: rgba(16, 185, 129, 0.08);
+  --neo-lavender-alpha: rgba(139, 92, 246, 0.08);
+
+  --neo-border: 1px solid #E2E8F0;
+  --neo-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --neo-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --neo-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --neo-radius: 12px;
+  --neo-radius-lg: 16px;
+  --neo-radius-xl: 20px;
+}
+
+[data-theme="dark"] {
+  --neo-bg: #0B0F19;
+  --neo-bg-secondary: #131B2E;
+  --neo-text: #F8FAFC;
+  --neo-text-secondary: #94A3B8;
+  --neo-border-color: #1E293B;
+  --neo-card-bg: #111827;
+  --neo-sidebar-bg: #0F172A;
+  --neo-header-bg: rgba(15, 23, 42, 0.88);
+  --neo-input-bg: #1E293B;
+  --neo-table-stripe: rgba(30, 41, 59, 0.3);
+  --neo-overlay: rgba(0, 0, 0, 0.7);
+
+  --neo-primary: #38BDF8;
+  --neo-primary-hover: #0EA5E9;
+  --neo-primary-light: rgba(56, 189, 248, 0.15);
+  --neo-primary-text: #38BDF8;
+
+  --neo-cyan: #22D3EE;
+  --neo-cyan-light: rgba(34, 211, 238, 0.15);
+
+  --neo-coral: #F87171;
+  --neo-coral-light: rgba(248, 113, 113, 0.15);
+
+  --neo-lime: #34D399;
+  --neo-lime-light: rgba(52, 211, 153, 0.15);
+  --neo-lime-text: #34D399;
+
+  --neo-lavender: #A78BFA;
+  --neo-lavender-light: rgba(167, 139, 250, 0.15);
+
+  --neo-primary-alpha: rgba(56, 189, 248, 0.12);
+  --neo-cyan-alpha: rgba(34, 211, 238, 0.12);
+  --neo-coral-alpha: rgba(248, 113, 113, 0.12);
+  --neo-lime-alpha: rgba(52, 211, 153, 0.12);
+  --neo-lavender-alpha: rgba(167, 139, 250, 0.12);
+
+  --neo-border: 1px solid #1E293B;
+  --neo-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --neo-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  --neo-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --neo-radius: 12px;
+  --neo-radius-lg: 16px;
+  --neo-radius-xl: 20px;
+}
+
+:root {
+  --font-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+
+  --sidebar-width: 270px;
+  --sidebar-collapsed: 76px;
+  --header-height: 68px;
+
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
