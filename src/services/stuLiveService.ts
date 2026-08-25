@@ -123,9 +123,8 @@ function applyLivePayloadToStore(live: LiveSyncResult): void {
     advisor: live.user.advisor || s.profile.advisor,
     email: (live.user as any).email && !(live.user as any).email.includes('@domain.com')
       ? (live.user as any).email
-      : `${(live.user.id || s.profile.id).toLowerCase()}@student.stu.edu.vn`,
+      : '',
     email2: (live.user as any).email2 || '',
-    studentEmail: `${(live.user.id || s.profile.id).toLowerCase()}@student.stu.edu.vn`,
   };
 
   // 1. Phân tích hóa đơn học phí của sinh viên đó từ STU API

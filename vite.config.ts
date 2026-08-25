@@ -127,10 +127,8 @@ function stuLiveBridgePlugin(): Plugin {
                   semesterIn: svInfo?.str_nhhk_vao || 'Học kỳ 1 Năm học 2026-2027',
                   semesterOut: svInfo?.str_nhhk_ra || 'Học kỳ 2 Năm học 2030-2031',
                   universityName: svInfo?.ten_truong || 'Trường Đại Học Công Nghệ Sài Gòn',
-                  universityCode: svInfo?.ma_truong || 'CNSG',
-                  email: svInfo?.email || '',
+                  email: (svInfo?.email && !svInfo.email.includes('@domain.com')) ? svInfo.email : '',
                   email2: svInfo?.email2 || '',
-                  studentEmail: `${(svInfo?.ma_sv || userObj.userName).toLowerCase()}@student.stu.edu.vn`,
                   advisor: svInfo?.ho_ten_cvht || ''
                 },
                 rawLive: {

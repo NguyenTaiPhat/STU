@@ -96,8 +96,8 @@ export class ProfileView implements ViewModule {
             ${this.infoItem('Giới tính', s.profile.gender === 'Nam' ? 'Nam' : 'Nữ')}
             ${this.infoItem('Số CMND/ CCCD', s.profile.citizenId || 'Chưa cập nhật', !!s.profile.citizenId)}
             ${this.infoItem('Trạng thái', s.profile.status || 'Đang học')}
-            ${this.infoItem('Email sinh viên', s.profile.studentEmail || `${s.profile.id.toLowerCase()}@student.stu.edu.vn`, true)}
-            ${this.infoItem('Email cá nhân (2)', s.profile.email2 || 'Chưa cập nhật')}
+            ${this.infoItem('Email', s.profile.email || 'Chưa cập nhật', !!s.profile.email)}
+            ${this.infoItem('Email 2', s.profile.email2 || 'Chưa cập nhật', !!s.profile.email2)}
           </div>
         </div>
       </div>

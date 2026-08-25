@@ -53,7 +53,6 @@ export interface StudentProfile {
   trainingPoints: Record<string, number>;
   email: string;
   email2?: string;
-  studentEmail?: string;
   phone: string;
 }
 
