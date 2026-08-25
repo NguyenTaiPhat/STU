@@ -117,11 +117,17 @@ function stuLiveBridgePlugin(): Plugin {
                     return 'Nam';
                   })(svInfo?.gioi_tinh),
                   citizenId: svInfo?.so_cmnd || '',
+                  status: svInfo?.hien_dien_sv || 'Đang học',
                   classCode: svInfo?.lop || '',
+                  blockCode: svInfo?.khoi || '',
                   major: svInfo?.nganh || '',
                   faculty: svInfo?.khoa || '',
                   degreeLevel: svInfo?.bac_he_dao_tao || '',
                   academicYear: svInfo?.nien_khoa || '',
+                  semesterIn: svInfo?.str_nhhk_vao || 'Học kỳ 1 Năm học 2026-2027',
+                  semesterOut: svInfo?.str_nhhk_ra || 'Học kỳ 2 Năm học 2030-2031',
+                  universityName: svInfo?.ten_truong || 'Trường Đại Học Công Nghệ Sài Gòn',
+                  universityCode: svInfo?.ma_truong || 'CNSG',
                   advisor: svInfo?.ho_ten_cvht || ''
                 },
                 rawLive: {

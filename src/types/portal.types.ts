@@ -40,10 +40,15 @@ export interface StudentProfile {
   citizenId?: string;
   status?: string;
   classCode: string;
+  blockCode?: string;
   major: string;
   faculty: string;
   degreeLevel?: string;
   academicYear: string;
+  semesterIn?: string;
+  semesterOut?: string;
+  universityName?: string;
+  universityCode?: string;
   advisor: string;
   trainingPoints: Record<string, number>;
   email: string;

@@ -112,12 +112,16 @@ export class ProfileView implements ViewModule {
 
     card.innerHTML = `
       <div class="profile-info-grid">
+        ${this.infoItem('Trường', s.profile.universityName || 'Trường Đại Học Công Nghệ Sài Gòn')}
         ${this.infoItem('Lớp sinh hoạt', s.profile.classCode, true)}
+        ${this.infoItem('Khối học', s.profile.blockCode || 'D26_TH', true)}
         ${this.infoItem('Ngành học', s.profile.major)}
         ${this.infoItem('Khoa chuyên môn', s.profile.faculty)}
         ${this.infoItem('Bậc hệ đào tạo', s.profile.degreeLevel || 'Đại học chính quy')}
-        ${this.infoItem('Khóa học', s.profile.academicYear, true)}
-        ${this.infoItem('Cố vấn học tập', s.profile.advisor || 'Đang cập nhật')}
+        ${this.infoItem('Niên khóa', s.profile.academicYear, true)}
+        ${this.infoItem('Học kỳ vào', s.profile.semesterIn || 'HK1 Năm học 2026-2027')}
+        ${this.infoItem('Dự kiến ra', s.profile.semesterOut || 'HK2 Năm học 2030-2031')}
+        ${this.infoItem('Cố vấn học tập', s.profile.advisor || 'Chưa phân công')}
       </div>
     `;
     slot.appendChild(card);
