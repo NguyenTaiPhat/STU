@@ -8,10 +8,77 @@ import { showToast } from '../components/Toast';
 const DAYS = [2, 3, 4, 5, 6, 7, 1];
 const PERIODS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
+function generateMonthlyCalendar(serverTimeStr?: string): string {
+  let now = new Date();
+  if (serverTimeStr) {
+    const parts = serverTimeStr.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+    if (parts) {
+      now = new Date(Number(parts[3]), Number(parts[2]) - 1, Number(parts[1]));
+    }
+  }
+
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  const currentDate = now.getDate();
+
+  const monthTitle = `Tháng ${currentMonth + 1} / ${currentYear}`;
+
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const startDayOfWeek = firstDay.getDay();
+  const vnStartOffset = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+  let daysHtml = '';
+
+  for (let i = vnStartOffset - 1; i >= 0; i--) {
+    const d = daysInPrevMonth - i;
+    daysHtml += `<div style="opacity:0.3;padding:4px 0">${d}</div>`;
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const isToday = day === currentDate;
+    const dayOfWeek = (vnStartOffset + day - 1) % 7;
+    const isSunday = dayOfWeek === 6;
+
+    if (isToday) {
+      daysHtml += `<div style="color:var(--neo-primary);font-weight:800;font-size:13.5px;background:var(--neo-primary-light);border-radius:6px;padding:4px 0">${day}</div>`;
+    } else if (isSunday) {
+      daysHtml += `<div style="color:var(--neo-coral);padding:4px 0">${day}</div>`;
+    } else {
+      daysHtml += `<div style="padding:4px 0">${day}</div>`;
+    }
+  }
+
+  const totalSlots = vnStartOffset + daysInMonth;
+  const remainingSlots = (7 - (totalSlots % 7)) % 7;
+  for (let nextDay = 1; nextDay <= remainingSlots; nextDay++) {
+    const dayOfWeek = (totalSlots + nextDay - 1) % 7;
+    const isSunday = dayOfWeek === 6;
+    daysHtml += `<div style="opacity:0.3;padding:4px 0;${isSunday ? 'color:var(--neo-coral)' : ''}">${nextDay}</div>`;
+  }
+
+  return `
+    <div class="text-bold text-heading" style="margin-bottom:var(--space-md);font-size:14px">${monthTitle}</div>
+    <div style="display:grid;grid-template-columns:repeat(7, 1fr);gap:4px;font-size:12px;font-weight:600">
+      <div style="color:var(--neo-text-secondary);padding-bottom:4px">T2</div>
+      <div style="color:var(--neo-text-secondary);padding-bottom:4px">T3</div>
+      <div style="color:var(--neo-text-secondary);padding-bottom:4px">T4</div>
+      <div style="color:var(--neo-text-secondary);padding-bottom:4px">T5</div>
+      <div style="color:var(--neo-text-secondary);padding-bottom:4px">T6</div>
+      <div style="color:var(--neo-text-secondary);padding-bottom:4px">T7</div>
+      <div style="color:var(--neo-coral);padding-bottom:4px">CN</div>
+      ${daysHtml}
+    </div>
+  `;
+}
+
 export class ScheduleView implements ViewModule {
   private container: HTMLElement | null = null;
   private unsub: (() => void) | null = null;
   private activeTab: 'week' | 'semester' = 'week';
+  private selectedWeekNumber: number = 1;
 
   mount(container: HTMLElement): void {
     this.container = container;
@@ -67,6 +134,19 @@ export class ScheduleView implements ViewModule {
   }
 
   private renderWeekSchedule(slot: Element, s: AppState): void {
+    const rawWeeks: any[] = s.rawLiveSchedule?.data?.ds_tuan_tkb || [];
+    
+    let weekOptions = '';
+    if (rawWeeks.length > 0) {
+      weekOptions = rawWeeks.map(w => `
+        <option value="${w.tuan_hoc_ky}" ${w.tuan_hoc_ky === this.selectedWeekNumber ? 'selected' : ''}>
+          ${w.thong_tin_tuan}
+        </option>
+      `).join('');
+    } else {
+      weekOptions = `<option value="1">Tuần 1 [từ 14/09/2026 đến 20/09/2026]</option>`;
+    }
+
     slot.innerHTML = `
       <div class="neo-card anim-fade-in-up" style="margin-bottom:var(--space-lg);padding:var(--space-md) var(--space-lg)">
         <div class="flex items-center justify-between flex-wrap gap-md mobile-filter-stack">
@@ -77,8 +157,8 @@ export class ScheduleView implements ViewModule {
             <select class="neo-select mobile-select" style="min-width:170px;padding:6px 12px;font-size:12.5px">
               <option>Thời khóa biểu cá nhân</option>
             </select>
-            <select class="neo-select mobile-select" style="min-width:270px;padding:6px 12px;font-size:12.5px">
-              <option>Tuần 1 [từ 14/09/2026 đến 20/09/2026]</option>
+            <select id="select-week" class="neo-select mobile-select" style="min-width:270px;padding:6px 12px;font-size:12.5px">
+              ${weekOptions}
             </select>
           </div>
           <div class="flex items-center gap-sm mobile-actions-stack">
@@ -114,32 +194,22 @@ export class ScheduleView implements ViewModule {
           <span class="neo-badge neo-badge--lime">HK 1-2026</span>
         </div>
         <div class="neo-progress" style="margin-bottom:var(--space-xl)">
-          <div class="neo-progress__fill" style="width:5%"></div>
+          <div class="neo-progress__fill" style="width:3%"></div>
         </div>
 
         <div style="max-width:340px;margin:0 auto;text-align:center">
-          <div class="text-bold text-heading" style="margin-bottom:var(--space-md);font-size:14px">Tháng 8 / 2026</div>
-          <div style="display:grid;grid-template-columns:repeat(7, 1fr);gap:4px;font-size:12px;font-weight:600">
-            <div style="color:var(--neo-text-secondary)">T2</div>
-            <div style="color:var(--neo-text-secondary)">T3</div>
-            <div style="color:var(--neo-text-secondary)">T4</div>
-            <div style="color:var(--neo-text-secondary)">T5</div>
-            <div style="color:var(--neo-text-secondary)">T6</div>
-            <div style="color:var(--neo-text-secondary)">T7</div>
-            <div style="color:var(--neo-coral)">CN</div>
-
-            <div style="opacity:0.3">27</div><div style="opacity:0.3">28</div><div style="opacity:0.3">29</div><div style="opacity:0.3">30</div><div style="opacity:0.3">31</div><div>1</div><div style="color:var(--neo-coral)">2</div>
-            <div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div style="color:var(--neo-coral)">9</div>
-            <div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div style="color:var(--neo-coral)">16</div>
-            <div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div style="color:var(--neo-coral)">23</div>
-            <div style="color:var(--neo-primary);font-weight:800;font-size:13.5px">24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div style="color:var(--neo-coral)">30</div>
-            <div>31</div><div style="opacity:0.3">1</div><div style="opacity:0.3">2</div><div style="opacity:0.3">3</div><div style="opacity:0.3">4</div><div style="opacity:0.3">5</div><div style="opacity:0.3;color:var(--neo-coral)">6</div>
-          </div>
+          ${generateMonthlyCalendar(s.serverTime)}
         </div>
       </div>
     `;
 
-    this.renderWeekGrid(slot, s.allCourses);
+    const weekSelect = slot.querySelector('#select-week') as HTMLSelectElement;
+    weekSelect?.addEventListener('change', (e) => {
+      this.selectedWeekNumber = Number((e.target as HTMLSelectElement).value) || 1;
+      this.renderWeekGrid(slot, s.allCourses, rawWeeks);
+    });
+
+    this.renderWeekGrid(slot, s.allCourses, rawWeeks);
     slot.querySelector('#btn-print-sch')?.addEventListener('click', () => window.print());
     slot.querySelector('#btn-excel-sch')?.addEventListener('click', () => {
       exportScheduleExcel();
@@ -205,27 +275,36 @@ export class ScheduleView implements ViewModule {
     });
   }
 
-  private renderWeekGrid(slot: Element, _courses: Course[]): void {
-    const wrap = slot.querySelector('#schedule-grid-wrap')!;
+  private renderWeekGrid(slot: Element, _courses: Course[], rawWeeks: any[] = []): void {
+    const wrap = slot.querySelector('#schedule-grid-wrap');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+
+    const currentWeekObj = rawWeeks.find(w => w.tuan_hoc_ky === this.selectedWeekNumber);
+
     const grid = document.createElement('div');
     grid.className = 'schedule-week-grid';
     grid.style.minWidth = '860px';
 
-    const dayDates: Record<number, string> = {
-      2: 'Thứ 2 (14/09)',
-      3: 'Thứ 3 (15/09)',
-      4: 'Thứ 4 (16/09)',
-      5: 'Thứ 5 (17/09)',
-      6: 'Thứ 6 (18/09)',
-      7: 'Thứ 7 (19/09)',
-      1: 'Chủ Nhật (20/09)',
+    const dayLabels: Record<number, string> = {
+      2: 'Thứ 2',
+      3: 'Thứ 3',
+      4: 'Thứ 4',
+      5: 'Thứ 5',
+      6: 'Thứ 6',
+      7: 'Thứ 7',
+      1: 'Chủ Nhật'
     };
 
     grid.innerHTML = '<div class="schedule-week-grid__header">Tiết</div>';
     DAYS.forEach(d => {
       const h = document.createElement('div');
       h.className = 'schedule-week-grid__header';
-      h.textContent = dayDates[d];
+      let dateInfo = '';
+      if (currentWeekObj?.ngay_bat_dau) {
+        dateInfo = ` (${currentWeekObj.ngay_bat_dau.slice(0, 5)})`;
+      }
+      h.textContent = `${dayLabels[d]}${d === 2 && currentWeekObj ? dateInfo : ''}`;
       grid.appendChild(h);
     });
 

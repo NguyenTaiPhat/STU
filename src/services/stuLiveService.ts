@@ -4,6 +4,7 @@ import { stateStore } from '../store/stateStore';
 export interface LiveSyncResult {
   success: boolean;
   syncedAt: string;
+  serverTime?: string;
   user: {
     id: string;
     fullName: string;
@@ -26,6 +27,7 @@ export interface LiveSyncResult {
     tuition?: any;
     grades?: any;
     notifications?: any;
+    serverTime?: any;
   };
 }
 
@@ -173,6 +175,8 @@ function applyLivePayloadToStore(live: LiveSyncResult): void {
     profile,
     invoices: mappedInvoices,
     grades: mappedGrades,
+    serverTime: live.serverTime || live.rawLive?.serverTime?.thoigianht || s.serverTime,
+    rawLiveSchedule: live.rawLive?.schedule || s.rawLiveSchedule,
     isLiveConnected: true
   });
 }

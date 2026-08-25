@@ -142,6 +142,8 @@ export interface AppState {
   isLiveSyncing?: boolean;
   isLiveConnected?: boolean;
   lastSyncedAt?: string;
+  serverTime?: string;
+  rawLiveSchedule?: any;
   isSidebarCollapsed?: boolean;
 }
 

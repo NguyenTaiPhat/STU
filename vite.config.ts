@@ -62,12 +62,17 @@ function stuLiveBridgePlugin(): Plugin {
                 'idpc': '0'
               };
 
-              const [infoRes, scheduleRes, tuitionRes, gradesRes, noticesRes] = await Promise.allSettled([
+              const [infoRes, scheduleRes, tuitionRes, gradesRes, noticesRes, serverTimeRes] = await Promise.allSettled([
                 fetch('http://amis01.stu.edu.vn/api/dkmh/w-locsinhvieninfo', {
                   method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json()),
-                fetch('http://amis01.stu.edu.vn/api/sch/w-locdsthongtinlophoctrongngay', {
-                  method: 'POST', headers, body: JSON.stringify({})
+                fetch('http://amis01.stu.edu.vn/api/sch/w-locdstkbtuanusertheohocky', {
+                  method: 'POST',
+                  headers,
+                  body: JSON.stringify({
+                    filter: { hoc_ky: 20261, ten_hoc_ky: '' },
+                    additional: { paging: { limit: 100, page: 1 }, ordering: [{ name: null, order_type: null }] }
+                  })
                 }).then(r => r.json()),
                 fetch('http://amis01.stu.edu.vn/api/merchant/w-locdsphieubaohocphisinhvien', {
                   method: 'POST', headers, body: JSON.stringify({})
@@ -77,14 +82,19 @@ function stuLiveBridgePlugin(): Plugin {
                 }).then(r => r.json()),
                 fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdsthongbao', {
                   method: 'POST', headers, body: JSON.stringify({})
+                }).then(r => r.json()),
+                fetch('http://amis01.stu.edu.vn/api/hsba/w-gettimeserver', {
+                  method: 'GET', headers
                 }).then(r => r.json())
               ]);
 
               const svInfo = infoRes.status === 'fulfilled' ? infoRes.value?.data : null;
+              const serverTime = serverTimeRes.status === 'fulfilled' ? serverTimeRes.value?.thoigianht : null;
 
               const resultPayload = {
                 success: true,
                 syncedAt: new Date().toISOString(),
+                serverTime,
                 user: {
                   id: svInfo?.ma_sv || userObj.userName,
                   fullName: svInfo?.ten_day_du || userObj.FullName,
