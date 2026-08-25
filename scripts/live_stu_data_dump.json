@@ -1,0 +1,809 @@
+{
+  "info": {
+    "data": {
+      "thoi_gian_get_data": "25/08/2026 11:56:47",
+      "ma_sv": "DH05260789",
+      "ten_day_du": "Nguyễn Tài Phát",
+      "ten_day_du_eg": "Nguyễn Tài Phát",
+      "gioi_tinh": "Nam",
+      "gioi_tinh_eg": "Male",
+      "ngay_sinh": "23/12/2008",
+      "dan_toc": "",
+      "dan_toc_eg": "",
+      "ton_giao": "",
+      "ton_giao_eg": "",
+      "quoc_tich": "",
+      "quoc_tich_eg": "",
+      "email2": "",
+      "doi_mat_khau": false,
+      "so_cmnd": "051208000136",
+      "lop": "D26_TH03",
+      "khu_vuc": "",
+      "doi_tuong_uu_tien": "",
+      "doi_tuong_xet_TN": "",
+      "khoi": "D26_TH",
+      "id_nganh": "-3560509737422720703",
+      "nganh": "Công nghệ Thông tin",
+      "chuyen_nganh": "",
+      "chuyen_nganh_eg": "",
+      "id_chuyen_nganh": "0",
+      "khoa": "Công nghệ Thông tin",
+      "khoa_eg": "Công nghệ Thông tin",
+      "bac_he_dao_tao": "Đại học chính quy",
+      "bac_he_dao_tao_eg": "Đại học chính quy",
+      "nien_khoa": "2026 - 2030",
+      "ma_cvht": "",
+      "ho_ten_cvht": "",
+      "ho_ten_cvht_eg": "",
+      "email_cvht": "",
+      "dien_thoai_cvht": "",
+      "ma_cvht_ng2": "",
+      "ho_ten_cvht_ng2": "",
+      "ho_ten_cvht_ng2_eg": "",
+      "email_cvht_ng2": "",
+      "dien_thoai_cvht_ng2": "",
+      "ma_truong": "CNSG",
+      "ten_truong": "Trường Đại Học Công Nghệ Sài Gòn",
+      "id_dia_phuong": "0",
+      "id_khoa": "7119706689770934862",
+      "id_sinh_vien": "-6781528038726915206",
+      "id_lop": "-6114468060144216254",
+      "id_khoi": "-6531967353772950555",
+      "id_bac_he_nganh": "-7365088792268480198",
+      "id_bac_he": "-7339073353478363704",
+      "id_he": "-7919543282865638288",
+      "id_quy_che": "-4886043628968059303",
+      "id_quy_che_P": "141587852389671234",
+      "id_hoc_che": "5926258616763747897",
+      "id_don_vi_phan_cap": "0",
+      "id_co_so_lop": "0",
+      "nhhk_vao": 20261,
+      "nhhk_ra": 20302,
+      "str_nhhk_vao": "Học kỳ 1 Năm học 2026-2027",
+      "str_nhhk_ra": "Học kỳ 2 Năm học 2030-2031",
+      "id_lop2": "0",
+      "id_khoi2": "0",
+      "id_khoa2": "0",
+      "id_bac_he_nganh2": "0",
+      "id_bac_he2": "0",
+      "id_he2": "0",
+      "id_quy_che2": "0",
+      "id_quy_che_P2": "0",
+      "id_hoc_che2": "0",
+      "chuyen_nganh2_eg": "",
+      "str_nhhk_vao2": "Học kỳ 0 Năm học 0-1",
+      "str_nhhk_ra2": "Học kỳ 0 Năm học 0-1",
+      "is_master_pass": false,
+      "is_cvht_dang_nhap": false,
+      "is_phu_huynh_dang_nhap": false,
+      "int_hien_dien_sv": 0,
+      "hien_dien_sv": "Đang học",
+      "hien_dien_sv_eg": "Studying",
+      "hien_dien_sv_ng2": "Đã nghỉ học",
+      "int_hien_dien_dkmh": 2,
+      "so_hk_max_sv": 0,
+      "ds_menu_cam_xem": [],
+      "str_hoan_thanh_dgrl": "",
+      "url_netweb": "",
+      "canh_cao_tool": "",
+      "str_canh_cao": "",
+      "ghi_chu": "",
+      "is_nhap_dia_chi_moi": true,
+      "lo_trinh_tieng_anh": "",
+      "nhhk_cuoi": "20261",
+      "so_qd_vao_moi": "",
+      "ngay_qd_vao_moi": "",
+      "so_qd_tot_nghiep": "",
+      "ngay_qd_tot_nghiep": "",
+      "is_xac_nhan_email": false
+    },
+    "result": true,
+    "code": 200
+  },
+  "quy_dinh": "Ngoài thời gian cho phép đăng ký",
+  "tkb_tuan": {
+    "data": {
+      "total_items": 52,
+      "total_pages": 1,
+      "ds_tiet_trong_ngay": [
+        {
+          "tiet": 1,
+          "gio_bat_dau": "07:00",
+          "gio_ket_thuc": "07:50",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 2,
+          "gio_bat_dau": "07:50",
+          "gio_ket_thuc": "08:40",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 3,
+          "gio_bat_dau": "08:40",
+          "gio_ket_thuc": "09:30",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 4,
+          "gio_bat_dau": "09:35",
+          "gio_ket_thuc": "10:25",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 5,
+          "gio_bat_dau": "10:25",
+          "gio_ket_thuc": "11:15",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 6,
+          "gio_bat_dau": "11:15",
+          "gio_ket_thuc": "12:05",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 7,
+          "gio_bat_dau": "12:35",
+          "gio_ket_thuc": "13:25",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 8,
+          "gio_bat_dau": "13:25",
+          "gio_ket_thuc": "14:15",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 9,
+          "gio_bat_dau": "14:15",
+          "gio_ket_thuc": "15:05",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 10,
+          "gio_bat_dau": "15:10",
+          "gio_ket_thuc": "16:00",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 11,
+          "gio_bat_dau": "16:00",
+          "gio_ket_thuc": "16:50",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 12,
+          "gio_bat_dau": "16:50",
+          "gio_ket_thuc": "17:40",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 13,
+          "gio_bat_dau": "17:45",
+          "gio_ket_thuc": "18:35",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 14,
+          "gio_bat_dau": "18:35",
+          "gio_ket_thuc": "19:25",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        },
+        {
+          "tiet": 15,
+          "gio_bat_dau": "19:25",
+          "gio_ket_thuc": "20:15",
+          "phut_bat_dau": 0,
+          "phut_ket_thuc": 0,
+          "so_phut": 50,
+          "nhhk": 20261
+        }
+      ],
+      "ds_tuan_tkb": [
+        {
+          "tuan_hoc_ky": 1,
+          "tuan_tuyet_doi": 1394,
+          "thong_tin_tuan": "Tuần 1 [từ ngày 14/09/2026 đến ngày 20/09/2026]",
+          "ngay_bat_dau": "14/09/2026",
+          "ngay_ket_thuc": "20/09/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 2,
+          "tuan_tuyet_doi": 1395,
+          "thong_tin_tuan": "Tuần 2 [từ ngày 21/09/2026 đến ngày 27/09/2026]",
+          "ngay_bat_dau": "21/09/2026",
+          "ngay_ket_thuc": "27/09/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 3,
+          "tuan_tuyet_doi": 1396,
+          "thong_tin_tuan": "Tuần 3 [từ ngày 28/09/2026 đến ngày 04/10/2026]",
+          "ngay_bat_dau": "28/09/2026",
+          "ngay_ket_thuc": "04/10/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 4,
+          "tuan_tuyet_doi": 1397,
+          "thong_tin_tuan": "Tuần 4 [từ ngày 05/10/2026 đến ngày 11/10/2026]",
+          "ngay_bat_dau": "05/10/2026",
+          "ngay_ket_thuc": "11/10/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 5,
+          "tuan_tuyet_doi": 1398,
+          "thong_tin_tuan": "Tuần 5 [từ ngày 12/10/2026 đến ngày 18/10/2026]",
+          "ngay_bat_dau": "12/10/2026",
+          "ngay_ket_thuc": "18/10/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 6,
+          "tuan_tuyet_doi": 1399,
+          "thong_tin_tuan": "Tuần 6 [từ ngày 19/10/2026 đến ngày 25/10/2026]",
+          "ngay_bat_dau": "19/10/2026",
+          "ngay_ket_thuc": "25/10/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 7,
+          "tuan_tuyet_doi": 1400,
+          "thong_tin_tuan": "Tuần 7 [từ ngày 26/10/2026 đến ngày 01/11/2026]",
+          "ngay_bat_dau": "26/10/2026",
+          "ngay_ket_thuc": "01/11/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 8,
+          "tuan_tuyet_doi": 1401,
+          "thong_tin_tuan": "Tuần 8 [từ ngày 02/11/2026 đến ngày 08/11/2026]",
+          "ngay_bat_dau": "02/11/2026",
+          "ngay_ket_thuc": "08/11/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 9,
+          "tuan_tuyet_doi": 1402,
+          "thong_tin_tuan": "Tuần 9 [từ ngày 09/11/2026 đến ngày 15/11/2026]",
+          "ngay_bat_dau": "09/11/2026",
+          "ngay_ket_thuc": "15/11/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 10,
+          "tuan_tuyet_doi": 1403,
+          "thong_tin_tuan": "Tuần 10 [từ ngày 16/11/2026 đến ngày 22/11/2026]",
+          "ngay_bat_dau": "16/11/2026",
+          "ngay_ket_thuc": "22/11/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 11,
+          "tuan_tuyet_doi": 1404,
+          "thong_tin_tuan": "Tuần 11 [từ ngày 23/11/2026 đến ngày 29/11/2026]",
+          "ngay_bat_dau": "23/11/2026",
+          "ngay_ket_thuc": "29/11/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 12,
+          "tuan_tuyet_doi": 1405,
+          "thong_tin_tuan": "Tuần 12 [từ ngày 30/11/2026 đến ngày 06/12/2026]",
+          "ngay_bat_dau": "30/11/2026",
+          "ngay_ket_thuc": "06/12/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 13,
+          "tuan_tuyet_doi": 1406,
+          "thong_tin_tuan": "Tuần 13 [từ ngày 07/12/2026 đến ngày 13/12/2026]",
+          "ngay_bat_dau": "07/12/2026",
+          "ngay_ket_thuc": "13/12/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 14,
+          "tuan_tuyet_doi": 1407,
+          "thong_tin_tuan": "Tuần 14 [từ ngày 14/12/2026 đến ngày 20/12/2026]",
+          "ngay_bat_dau": "14/12/2026",
+          "ngay_ket_thuc": "20/12/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 15,
+          "tuan_tuyet_doi": 1408,
+          "thong_tin_tuan": "Tuần 15 [từ ngày 21/12/2026 đến ngày 27/12/2026]",
+          "ngay_bat_dau": "21/12/2026",
+          "ngay_ket_thuc": "27/12/2026",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 16,
+          "tuan_tuyet_doi": 1409,
+          "thong_tin_tuan": "Tuần 16 [từ ngày 28/12/2026 đến ngày 03/01/2027]",
+          "ngay_bat_dau": "28/12/2026",
+          "ngay_ket_thuc": "03/01/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 17,
+          "tuan_tuyet_doi": 1410,
+          "thong_tin_tuan": "Tuần 17 [từ ngày 04/01/2027 đến ngày 10/01/2027]",
+          "ngay_bat_dau": "04/01/2027",
+          "ngay_ket_thuc": "10/01/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 18,
+          "tuan_tuyet_doi": 1411,
+          "thong_tin_tuan": "Tuần 18 [từ ngày 11/01/2027 đến ngày 17/01/2027]",
+          "ngay_bat_dau": "11/01/2027",
+          "ngay_ket_thuc": "17/01/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 19,
+          "tuan_tuyet_doi": 1412,
+          "thong_tin_tuan": "Tuần 19 [từ ngày 18/01/2027 đến ngày 24/01/2027]",
+          "ngay_bat_dau": "18/01/2027",
+          "ngay_ket_thuc": "24/01/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 20,
+          "tuan_tuyet_doi": 1413,
+          "thong_tin_tuan": "Tuần 20 [từ ngày 25/01/2027 đến ngày 31/01/2027]",
+          "ngay_bat_dau": "25/01/2027",
+          "ngay_ket_thuc": "31/01/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 21,
+          "tuan_tuyet_doi": 1414,
+          "thong_tin_tuan": "Tuần 21 [từ ngày 01/02/2027 đến ngày 07/02/2027]",
+          "ngay_bat_dau": "01/02/2027",
+          "ngay_ket_thuc": "07/02/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 22,
+          "tuan_tuyet_doi": 1415,
+          "thong_tin_tuan": "Tuần 22 [từ ngày 08/02/2027 đến ngày 14/02/2027]",
+          "ngay_bat_dau": "08/02/2027",
+          "ngay_ket_thuc": "14/02/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 23,
+          "tuan_tuyet_doi": 1416,
+          "thong_tin_tuan": "Tuần 23 [từ ngày 15/02/2027 đến ngày 21/02/2027]",
+          "ngay_bat_dau": "15/02/2027",
+          "ngay_ket_thuc": "21/02/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 24,
+          "tuan_tuyet_doi": 1417,
+          "thong_tin_tuan": "Tuần 24 [từ ngày 22/02/2027 đến ngày 28/02/2027]",
+          "ngay_bat_dau": "22/02/2027",
+          "ngay_ket_thuc": "28/02/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 25,
+          "tuan_tuyet_doi": 1418,
+          "thong_tin_tuan": "Tuần 25 [từ ngày 01/03/2027 đến ngày 07/03/2027]",
+          "ngay_bat_dau": "01/03/2027",
+          "ngay_ket_thuc": "07/03/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 26,
+          "tuan_tuyet_doi": 1419,
+          "thong_tin_tuan": "Tuần 26 [từ ngày 08/03/2027 đến ngày 14/03/2027]",
+          "ngay_bat_dau": "08/03/2027",
+          "ngay_ket_thuc": "14/03/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 27,
+          "tuan_tuyet_doi": 1420,
+          "thong_tin_tuan": "Tuần 27 [từ ngày 15/03/2027 đến ngày 21/03/2027]",
+          "ngay_bat_dau": "15/03/2027",
+          "ngay_ket_thuc": "21/03/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 28,
+          "tuan_tuyet_doi": 1421,
+          "thong_tin_tuan": "Tuần 28 [từ ngày 22/03/2027 đến ngày 28/03/2027]",
+          "ngay_bat_dau": "22/03/2027",
+          "ngay_ket_thuc": "28/03/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 29,
+          "tuan_tuyet_doi": 1422,
+          "thong_tin_tuan": "Tuần 29 [từ ngày 29/03/2027 đến ngày 04/04/2027]",
+          "ngay_bat_dau": "29/03/2027",
+          "ngay_ket_thuc": "04/04/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 30,
+          "tuan_tuyet_doi": 1423,
+          "thong_tin_tuan": "Tuần 30 [từ ngày 05/04/2027 đến ngày 11/04/2027]",
+          "ngay_bat_dau": "05/04/2027",
+          "ngay_ket_thuc": "11/04/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 31,
+          "tuan_tuyet_doi": 1424,
+          "thong_tin_tuan": "Tuần 31 [từ ngày 12/04/2027 đến ngày 18/04/2027]",
+          "ngay_bat_dau": "12/04/2027",
+          "ngay_ket_thuc": "18/04/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 32,
+          "tuan_tuyet_doi": 1425,
+          "thong_tin_tuan": "Tuần 32 [từ ngày 19/04/2027 đến ngày 25/04/2027]",
+          "ngay_bat_dau": "19/04/2027",
+          "ngay_ket_thuc": "25/04/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 33,
+          "tuan_tuyet_doi": 1426,
+          "thong_tin_tuan": "Tuần 33 [từ ngày 26/04/2027 đến ngày 02/05/2027]",
+          "ngay_bat_dau": "26/04/2027",
+          "ngay_ket_thuc": "02/05/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 34,
+          "tuan_tuyet_doi": 1427,
+          "thong_tin_tuan": "Tuần 34 [từ ngày 03/05/2027 đến ngày 09/05/2027]",
+          "ngay_bat_dau": "03/05/2027",
+          "ngay_ket_thuc": "09/05/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 35,
+          "tuan_tuyet_doi": 1428,
+          "thong_tin_tuan": "Tuần 35 [từ ngày 10/05/2027 đến ngày 16/05/2027]",
+          "ngay_bat_dau": "10/05/2027",
+          "ngay_ket_thuc": "16/05/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 36,
+          "tuan_tuyet_doi": 1429,
+          "thong_tin_tuan": "Tuần 36 [từ ngày 17/05/2027 đến ngày 23/05/2027]",
+          "ngay_bat_dau": "17/05/2027",
+          "ngay_ket_thuc": "23/05/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 37,
+          "tuan_tuyet_doi": 1430,
+          "thong_tin_tuan": "Tuần 37 [từ ngày 24/05/2027 đến ngày 30/05/2027]",
+          "ngay_bat_dau": "24/05/2027",
+          "ngay_ket_thuc": "30/05/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 38,
+          "tuan_tuyet_doi": 1431,
+          "thong_tin_tuan": "Tuần 38 [từ ngày 31/05/2027 đến ngày 06/06/2027]",
+          "ngay_bat_dau": "31/05/2027",
+          "ngay_ket_thuc": "06/06/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 39,
+          "tuan_tuyet_doi": 1432,
+          "thong_tin_tuan": "Tuần 39 [từ ngày 07/06/2027 đến ngày 13/06/2027]",
+          "ngay_bat_dau": "07/06/2027",
+          "ngay_ket_thuc": "13/06/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 40,
+          "tuan_tuyet_doi": 1433,
+          "thong_tin_tuan": "Tuần 40 [từ ngày 14/06/2027 đến ngày 20/06/2027]",
+          "ngay_bat_dau": "14/06/2027",
+          "ngay_ket_thuc": "20/06/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 41,
+          "tuan_tuyet_doi": 1434,
+          "thong_tin_tuan": "Tuần 41 [từ ngày 21/06/2027 đến ngày 27/06/2027]",
+          "ngay_bat_dau": "21/06/2027",
+          "ngay_ket_thuc": "27/06/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 42,
+          "tuan_tuyet_doi": 1435,
+          "thong_tin_tuan": "Tuần 42 [từ ngày 28/06/2027 đến ngày 04/07/2027]",
+          "ngay_bat_dau": "28/06/2027",
+          "ngay_ket_thuc": "04/07/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 43,
+          "tuan_tuyet_doi": 1436,
+          "thong_tin_tuan": "Tuần 43 [từ ngày 05/07/2027 đến ngày 11/07/2027]",
+          "ngay_bat_dau": "05/07/2027",
+          "ngay_ket_thuc": "11/07/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 44,
+          "tuan_tuyet_doi": 1437,
+          "thong_tin_tuan": "Tuần 44 [từ ngày 12/07/2027 đến ngày 18/07/2027]",
+          "ngay_bat_dau": "12/07/2027",
+          "ngay_ket_thuc": "18/07/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 45,
+          "tuan_tuyet_doi": 1438,
+          "thong_tin_tuan": "Tuần 45 [từ ngày 19/07/2027 đến ngày 25/07/2027]",
+          "ngay_bat_dau": "19/07/2027",
+          "ngay_ket_thuc": "25/07/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 46,
+          "tuan_tuyet_doi": 1439,
+          "thong_tin_tuan": "Tuần 46 [từ ngày 26/07/2027 đến ngày 01/08/2027]",
+          "ngay_bat_dau": "26/07/2027",
+          "ngay_ket_thuc": "01/08/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 47,
+          "tuan_tuyet_doi": 1440,
+          "thong_tin_tuan": "Tuần 47 [từ ngày 02/08/2027 đến ngày 08/08/2027]",
+          "ngay_bat_dau": "02/08/2027",
+          "ngay_ket_thuc": "08/08/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 48,
+          "tuan_tuyet_doi": 1441,
+          "thong_tin_tuan": "Tuần 48 [từ ngày 09/08/2027 đến ngày 15/08/2027]",
+          "ngay_bat_dau": "09/08/2027",
+          "ngay_ket_thuc": "15/08/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 49,
+          "tuan_tuyet_doi": 1442,
+          "thong_tin_tuan": "Tuần 49 [từ ngày 16/08/2027 đến ngày 22/08/2027]",
+          "ngay_bat_dau": "16/08/2027",
+          "ngay_ket_thuc": "22/08/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 50,
+          "tuan_tuyet_doi": 1443,
+          "thong_tin_tuan": "Tuần 50 [từ ngày 23/08/2027 đến ngày 29/08/2027]",
+          "ngay_bat_dau": "23/08/2027",
+          "ngay_ket_thuc": "29/08/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 51,
+          "tuan_tuyet_doi": 1444,
+          "thong_tin_tuan": "Tuần 51 [từ ngày 30/08/2027 đến ngày 05/09/2027]",
+          "ngay_bat_dau": "30/08/2027",
+          "ngay_ket_thuc": "05/09/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        },
+        {
+          "tuan_hoc_ky": 52,
+          "tuan_tuyet_doi": 1445,
+          "thong_tin_tuan": "Tuần 52 [từ ngày 06/09/2027 đến ngày 12/09/2027]",
+          "ngay_bat_dau": "06/09/2027",
+          "ngay_ket_thuc": "12/09/2027",
+          "ds_thoi_khoa_bieu": [],
+          "ds_id_thoi_khoa_bieu_trung": []
+        }
+      ],
+      "ds_lich_hoan_thi": [],
+      "title_lich_hoan_thi": "",
+      "is_duoc_diem_danh": true,
+      "is_duoc_dk_nghi_day": false,
+      "is_quan_ly_hoc_lieu": false,
+      "is_show_tiet": true,
+      "is_show_gio_ket_thuc": false,
+      "is_show_link_hoc_online": false,
+      "thong_bao": "",
+      "is_bat_buoc_nhap_ly_do_nghi_day": false
+    },
+    "result": true,
+    "code": 200
+  },
+  "tkb_ngay": {
+    "data": {
+      "ngay_hoc": "25/08/2026",
+      "ds_du_lieu": [
+        {
+          "ten_phong": "S (96)",
+          "ten_giang_vien": "Bùi Nhật Bằng",
+          "ten_mon_hoc": "Kiểm thử phần mềm",
+          "ten_lop": "HK25.3_DOT 2"
+        },
+        {
+          "ten_phong": "Phòng máy 03_B306",
+          "ten_giang_vien": "Hoàng Khuê",
+          "ten_mon_hoc": "Thực hành Lập trình cho thiết bị di động",
+          "ten_lop": "HK25.3_DOT 2"
+        },
+        {
+          "ten_phong": "Phòng máy 06_B311",
+          "ten_giang_vien": "Lê Triệu Ngọc Đức",
+          "ten_mon_hoc": "Thực hành Lập trình ứng dụng cơ sở dữ liệu",
+          "ten_lop": "HK25.3_DOT 2"
+        }
+      ]
+    },
+    "result": true,
+    "code": 200
+  },
+  "phieu_bao_hp": {
+    "data": {
+      "thong_bao_loi": "Hệ thống kết nối ngân hàng chưa sẵn sàng. Vui lòng liên hệ nhà trường để kiểm tra.",
+      "is_thoi_gian_hp": false,
+      "is_cho_nhap_so_tien": false,
+      "is_chon_mot_phieu": false,
+      "is_dong_hp_edubill": false,
+      "tieu_de_button": "Thanh toán học phí",
+      "ds_phieu_bao": [],
+      "thong_bao_hp": "",
+      "thong_bao_gia_han": ""
+    },
+    "result": true,
+    "code": 200
+  },
+  "diem_hk": {
+    "data": {
+      "total_items": 1,
+      "total_pages": 1,
+      "diem_tb_tich_luy": "",
+      "diem_tl_he_4": "",
+      "so_tc_tich_luy": ""
+    },
+    "result": true,
+    "code": 200
+  },
+  "diem_tich_luy_ky_vong": {
+    "result": false,
+    "code": 500,
+    "message": "System.ArgumentNullException: Value cannot be null.\r\nParameter name: source\r\n   at System.Linq.Enumerable.Select[TSource,TResult](IEnumerable`1 source, Func`2 selector)\r\n   at Edusoft.Api.Controllers.SRMController.W_XetDiemTichLuyKyVong(MonHocChuaDatDiemDataDO data)"
+  },
+  "kq_dkmh": {
+    "data": {
+      "total_items": 0,
+      "total_pages": 1,
+      "so_tin_chi_min": 0,
+      "ngay_in": "2026-08-25T11:57:34.7495428+07:00",
+      "is_show_nganh_hoc": false,
+      "is_show_dia_diem_thi": false,
+      "ds_kqdkmh": [],
+      "is_gui_mail_rut_mh": false,
+      "is_xac_nhan_kqdk": false
+    },
+    "result": true,
+    "code": 200
+  },
+  "ctdt_sv": "Ngoài thời gian cho phép đăng ký",
+  "ctdt_all": "Ngoài thời gian cho phép đăng ký",
+  "mon_da_dk": "Ngoài thời gian cho phép đăng ký",
+  "thong_bao": "Ngoài thời gian cho phép đăng ký",
+  "time_server": {
+    "thoigianht": "25/08/2026 11:57:34"
+  }
+}
