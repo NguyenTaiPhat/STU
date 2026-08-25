@@ -62,7 +62,7 @@ function stuLiveBridgePlugin(): Plugin {
                 'idpc': '0'
               };
 
-              const [infoRes, scheduleRes, tuitionRes, gradesRes, noticesRes, serverTimeRes] = await Promise.allSettled([
+              const [infoRes, scheduleRes, tuitionRes, gradesRes, noticesRes, serverTimeRes, registeredCoursesRes, ctdtRes] = await Promise.allSettled([
                 fetch('http://amis01.stu.edu.vn/api/dkmh/w-locsinhvieninfo', {
                   method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json()),
@@ -85,6 +85,12 @@ function stuLiveBridgePlugin(): Plugin {
                 }).then(r => r.json()),
                 fetch('http://amis01.stu.edu.vn/api/hsba/w-gettimeserver', {
                   method: 'GET', headers
+                }).then(r => r.json()),
+                fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdskqdkmhsinhvien', {
+                  method: 'POST', headers, body: JSON.stringify({})
+                }).then(r => r.json()),
+                fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdsctdtsinhvien', {
+                  method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json())
               ]);
 
@@ -123,7 +129,10 @@ function stuLiveBridgePlugin(): Plugin {
                   schedule: scheduleRes.status === 'fulfilled' ? scheduleRes.value : null,
                   tuition: tuitionRes.status === 'fulfilled' ? tuitionRes.value : null,
                   grades: gradesRes.status === 'fulfilled' ? gradesRes.value : null,
-                  notifications: noticesRes.status === 'fulfilled' ? noticesRes.value : null
+                  notifications: noticesRes.status === 'fulfilled' ? noticesRes.value : null,
+                  registeredCourses: registeredCoursesRes.status === 'fulfilled' ? registeredCoursesRes.value : null,
+                  ctdt: ctdtRes.status === 'fulfilled' ? ctdtRes.value : null,
+                  serverTime: serverTimeRes.status === 'fulfilled' ? serverTimeRes.value : null
                 }
               };
 
