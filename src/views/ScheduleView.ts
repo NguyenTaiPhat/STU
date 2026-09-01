@@ -169,12 +169,12 @@ export class ScheduleView implements ViewModule {
         </div>
       </div>
 
-      <div class="neo-card anim-fade-in-up anim-delay-1" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);border-left:4px solid var(--neo-amber);padding:var(--space-md)">
-        <div class="flex items-start gap-sm">
-          <span class="neo-badge neo-badge--warning" style="font-size:10px;padding:3px 8px;flex-shrink:0;margin-top:2px">THÔNG BÁO TỪ TRƯỜNG STU</span>
-          <div class="text-secondary" style="font-size:12px;line-height:1.5;color:var(--neo-text-primary)">
+      <div class="neo-card anim-fade-in-up anim-delay-1 mobile-compact-card" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);border-left:3px solid var(--neo-amber);padding:10px 14px">
+        <div class="flex flex-col items-start gap-xs">
+          <span class="neo-badge neo-badge--warning" style="font-size:9.5px;padding:2px 8px;margin-bottom:2px">THÔNG BÁO TỪ TRƯỜNG STU</span>
+          <div class="text-secondary" style="font-size:11.5px;line-height:1.45;color:var(--neo-text-primary)">
             <strong>${noticeText}</strong>
-            <div style="margin-top:4px;font-size:11.5px;color:var(--neo-text-secondary)">
+            <div style="margin-top:2px;font-size:11px;color:var(--neo-text-secondary)">
               Tân sinh viên Khóa 2026 - 2030 bắt đầu học kỳ 1 từ ngày <strong>14/09/2026</strong>. Lịch phân phòng và ca học chi tiết đang được Nhà trường cập nhật trực tiếp trên hệ thống AMIS STU.
             </div>
           </div>
