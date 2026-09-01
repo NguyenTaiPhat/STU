@@ -757,4 +757,14 @@ body.sidebar--collapsed .sidebar__nav {
     padding: var(--space-lg) !important;
     margin: var(--space-sm);
   }
+
+  .mobile-compact-card {
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .mobile-tab-group button {
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+  }
 }

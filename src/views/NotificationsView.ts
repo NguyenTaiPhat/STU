@@ -60,27 +60,27 @@ export class NotificationsView implements ViewModule {
           : '<span class="neo-badge neo-badge--cyan">Thông báo</span>';
 
         return `
-          <div class="neo-card anim-fade-in-up ${!n.isRead ? 'neo-card--unread' : ''}" style="margin-bottom:var(--space-md);padding:var(--space-lg);border-left:4px solid ${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'}">
-            <div class="flex items-start justify-between gap-md">
-              <div class="flex items-start gap-md">
-                <div style="width:36px;height:36px;border-radius:10px;background:${n.type === 'warning' ? 'var(--neo-coral-light)' : n.type === 'success' ? 'var(--neo-lime-light)' : 'var(--neo-primary-light)'};color:${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
-                  ${n.type === 'warning' ? icons.alertTriangle(18) : n.type === 'success' ? icons.creditCard(18) : icons.info(18)}
+          <div class="neo-card anim-fade-in-up ${!n.isRead ? 'neo-card--unread' : ''}" style="margin-bottom:var(--space-sm);padding:12px 14px;border-left:3px solid ${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'}">
+            <div class="flex items-start justify-between gap-sm flex-wrap">
+              <div class="flex items-start gap-sm" style="flex:1;min-width:0">
+                <div style="width:30px;height:30px;border-radius:8px;background:${n.type === 'warning' ? 'var(--neo-coral-light)' : n.type === 'success' ? 'var(--neo-lime-light)' : 'var(--neo-primary-light)'};color:${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+                  ${n.type === 'warning' ? icons.alertTriangle(15) : n.type === 'success' ? icons.creditCard(15) : icons.info(15)}
                 </div>
-                <div>
-                  <div class="flex items-center gap-sm flex-wrap" style="margin-bottom:4px">
+                <div style="min-width:0;flex:1">
+                  <div class="flex items-center gap-xs flex-wrap" style="margin-bottom:2px">
                     ${typeBadge}
-                    <span class="text-bold" style="font-size:14px;color:var(--neo-text)">${n.title}</span>
-                    ${!n.isRead ? '<span class="neo-badge neo-badge--coral" style="font-size:9.5px;padding:1px 6px">Mới</span>' : ''}
+                    <span class="text-bold" style="font-size:13px;color:var(--neo-text)">${n.title}</span>
+                    ${!n.isRead ? '<span class="neo-badge neo-badge--coral" style="font-size:9px;padding:1px 5px">Mới</span>' : ''}
                   </div>
-                  <div class="text-sm text-secondary" style="line-height:1.55;margin-bottom:var(--space-xs)">
+                  <div class="text-xs text-secondary" style="font-size:12px;line-height:1.45;margin-bottom:4px">
                     ${n.message}
                   </div>
-                  <div class="text-xs text-secondary flex items-center gap-xs">
-                    ${icons.clock(12)} <span>${n.date}</span>
+                  <div class="text-xs text-secondary flex items-center gap-xs" style="font-size:11px">
+                    ${icons.clock(11)} <span>${n.date}</span>
                   </div>
                 </div>
               </div>
-              ${!n.isRead ? `<button class="neo-btn neo-btn--ghost neo-btn--sm btn-mark-read" data-id="${n.id}" style="flex-shrink:0">Đánh dấu đã đọc</button>` : ''}
+              ${!n.isRead ? `<button class="neo-btn neo-btn--ghost neo-btn--sm btn-mark-read" data-id="${n.id}" style="padding:3px 8px;font-size:11px;flex-shrink:0">Đánh dấu đã đọc</button>` : ''}
             </div>
           </div>
         `;
@@ -105,10 +105,10 @@ export class NotificationsView implements ViewModule {
       </div>
 
       ${isOutsideHours ? `
-        <div class="neo-card anim-fade-in-up" style="margin-bottom:var(--space-lg);background:var(--neo-bg-secondary);border-left:4px solid var(--neo-coral);padding:var(--space-md)">
+        <div class="neo-card anim-fade-in-up mobile-compact-card" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);border-left:3px solid var(--neo-coral);padding:10px 14px">
           <div class="flex flex-col items-start gap-xs">
-            <span class="neo-badge neo-badge--coral" style="font-size:10.5px;padding:3px 10px;margin-bottom:4px">KHUNG GIỜ KHÓA CỔNG MÁY CHỦ STU (07:00 - 19:00)</span>
-            <div class="text-xs text-secondary" style="line-height:1.5;color:var(--neo-text-primary)">
+            <span class="neo-badge neo-badge--coral" style="font-size:9.5px;padding:2px 8px;margin-bottom:2px;letter-spacing:0.2px">KHUNG GIỜ KHÓA CỔNG MÁY CHỦ STU (07:00 - 19:00)</span>
+            <div class="text-xs text-secondary" style="font-size:11.5px;line-height:1.45;color:var(--neo-text-primary)">
               Máy chủ STU quy định cổng ĐKMH &amp; Thông báo chỉ hoạt động từ <strong>07:00 đến 19:00</strong> hàng ngày. Dữ liệu đang được đồng bộ trực tiếp cho sinh viên <strong>${s.profile.fullName}</strong> (${s.profile.id}).
             </div>
           </div>
