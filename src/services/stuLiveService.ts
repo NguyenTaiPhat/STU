@@ -125,6 +125,7 @@ function applyLivePayloadToStore(live: LiveSyncResult): void {
       ? (live.user as any).email
       : '',
     email2: (live.user as any).email2 || '',
+    officialNotice: (live.user as any).officialNotice || s.profile.officialNotice || ''
   };
 
   // 1. Phân tích hóa đơn học phí của sinh viên đó từ STU API
@@ -186,6 +187,7 @@ function applyLivePayloadToStore(live: LiveSyncResult): void {
     grades: mappedGrades,
     serverTime: live.serverTime || live.rawLive?.serverTime?.thoigianht || s.serverTime,
     rawLiveSchedule: live.rawLive?.schedule || s.rawLiveSchedule,
+    officialNotice: profile.officialNotice,
     isLiveConnected: true
   });
 }

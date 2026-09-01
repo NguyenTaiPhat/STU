@@ -16,6 +16,9 @@ import { RegistrationView } from './views/RegistrationView';
 import { FinanceView } from './views/FinanceView';
 import { ProfileView } from './views/ProfileView';
 import { NotificationsView } from './views/NotificationsView';
+import { CurriculumView } from './views/CurriculumView';
+import { ExamScheduleView } from './views/ExamScheduleView';
+import { ServicesView } from './views/ServicesView';
 import { fetchAndApplyLiveSTUData, startAutoSyncPolling, stopAutoSyncPolling } from './services/stuLiveService';
 
 // Hủy đăng ký toàn bộ Service Worker cũ trên localhost:3000
@@ -43,10 +46,13 @@ function renderAppShell(app: HTMLElement): void {
   initRouter(main, {
     [TabId.Dashboard]: () => new DashboardView(),
     [TabId.Notifications]: () => new NotificationsView(),
+    [TabId.Curriculum]: () => new CurriculumView(),
     [TabId.Schedule]: () => new ScheduleView(),
+    [TabId.ExamSchedule]: () => new ExamScheduleView(),
     [TabId.Grades]: () => new GradesView(),
     [TabId.Registration]: () => new RegistrationView(),
     [TabId.Finance]: () => new FinanceView(),
+    [TabId.Services]: () => new ServicesView(),
     [TabId.Profile]: () => new ProfileView(),
     [TabId.Feedback]: () => new NotificationsView(),
   });

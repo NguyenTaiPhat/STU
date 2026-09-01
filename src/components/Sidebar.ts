@@ -7,10 +7,13 @@ type NavItem = { id: TabId; label: string; icon: (sz?: number, c?: string) => st
 const NAV_ITEMS: NavItem[] = [
   { id: TabId.Dashboard, label: 'Tổng quan & Bảng tin', icon: icons.dashboard },
   { id: TabId.Notifications, label: 'Thông báo ban quản trị', icon: icons.bell },
-  { id: TabId.Registration, label: 'Chương trình & ĐK Môn', icon: icons.bookOpen },
-  { id: TabId.Finance, label: 'Học phí & Hóa đơn', icon: icons.creditCard },
+  { id: TabId.Curriculum, label: 'Chương trình đào tạo', icon: icons.folder },
+  { id: TabId.Registration, label: 'Đăng ký học phần', icon: icons.bookOpen },
   { id: TabId.Schedule, label: 'Thời khóa biểu', icon: icons.calendar },
-  { id: TabId.Grades, label: 'Kết quả học tập', icon: icons.graduationCap },
+  { id: TabId.ExamSchedule, label: 'Lịch thi cá nhân', icon: icons.clock },
+  { id: TabId.Grades, label: 'Kết quả học tập & ĐRL', icon: icons.graduationCap },
+  { id: TabId.Finance, label: 'Học phí & Hóa đơn', icon: icons.creditCard },
+  { id: TabId.Services, label: 'Dịch vụ hành chính', icon: icons.fileText },
   { id: TabId.Profile, label: 'Hồ sơ sinh viên', icon: icons.user },
 ];
 

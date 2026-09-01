@@ -96,6 +96,8 @@ function stuLiveBridgePlugin(): Plugin {
 
               const svInfo = infoRes.status === 'fulfilled' ? infoRes.value?.data : null;
               const serverTime = serverTimeRes.status === 'fulfilled' ? serverTimeRes.value?.thoigianht : null;
+              const dsCamXem = Array.isArray(svInfo?.ds_menu_cam_xem) ? svInfo.ds_menu_cam_xem : [];
+              const officialNotice = dsCamXem.map((item: any) => item.ghi_chu).filter(Boolean).join(' | ');
 
               const resultPayload = {
                 success: true,
@@ -129,7 +131,8 @@ function stuLiveBridgePlugin(): Plugin {
                   universityName: svInfo?.ten_truong || 'Trường Đại Học Công Nghệ Sài Gòn',
                   email: (svInfo?.email && !svInfo.email.includes('@domain.com')) ? svInfo.email : '',
                   email2: svInfo?.email2 || '',
-                  advisor: svInfo?.ho_ten_cvht || ''
+                  advisor: svInfo?.ho_ten_cvht || '',
+                  officialNotice: officialNotice || svInfo?.ghi_chu || ''
                 },
                 rawLive: {
                   info: svInfo,

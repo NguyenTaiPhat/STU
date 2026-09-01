@@ -135,7 +135,8 @@ export class ScheduleView implements ViewModule {
 
   private renderWeekSchedule(slot: Element, s: AppState): void {
     const rawWeeks: any[] = s.rawLiveSchedule?.data?.ds_tuan_tkb || [];
-    
+    const noticeText = s.officialNotice || s.profile?.officialNotice || '[Tân sinh viên khóa 2026 không cần thực hiện đăng ký môn học; thời khóa biểu sẽ được thông báo trong thời gian từ ngày 01/09/2026 đến ngày 05/09/2026]';
+
     let weekOptions = '';
     if (rawWeeks.length > 0) {
       weekOptions = rawWeeks.map(w => `
@@ -168,12 +169,15 @@ export class ScheduleView implements ViewModule {
         </div>
       </div>
 
-      <div class="neo-card anim-fade-in-up anim-delay-1" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);padding:var(--space-sm) var(--space-md)">
-        <div class="flex items-center gap-sm">
-          <span class="neo-badge neo-badge--cyan" style="font-size:10px;padding:2px 6px;flex-shrink:0">LƯU Ý</span>
-          <span class="text-secondary" style="font-size:11.5px;line-height:1.4">
-            Tân sinh viên Khóa 2026 - 2030 bắt đầu học kỳ 1 từ ngày <strong>14/09/2026</strong>. Lịch phân phòng và ca học chi tiết sẽ được Nhà trường hiển thị trước ngày khai giảng.
-          </span>
+      <div class="neo-card anim-fade-in-up anim-delay-1" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);border-left:4px solid var(--neo-amber);padding:var(--space-md)">
+        <div class="flex items-start gap-sm">
+          <span class="neo-badge neo-badge--warning" style="font-size:10px;padding:3px 8px;flex-shrink:0;margin-top:2px">THÔNG BÁO TỪ TRƯỜNG STU</span>
+          <div class="text-secondary" style="font-size:12px;line-height:1.5;color:var(--neo-text-primary)">
+            <strong>${noticeText}</strong>
+            <div style="margin-top:4px;font-size:11.5px;color:var(--neo-text-secondary)">
+              Tân sinh viên Khóa 2026 - 2030 bắt đầu học kỳ 1 từ ngày <strong>14/09/2026</strong>. Lịch phân phòng và ca học chi tiết đang được Nhà trường cập nhật trực tiếp trên hệ thống AMIS STU.
+            </div>
+          </div>
         </div>
       </div>
 

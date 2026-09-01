@@ -1,10 +1,13 @@
 export enum TabId {
   Dashboard = 'dashboard',
   Notifications = 'notifications',
+  Curriculum = 'curriculum',
   Registration = 'registration',
   Finance = 'finance',
   Schedule = 'schedule',
+  ExamSchedule = 'exam_schedule',
   Grades = 'grades',
+  Services = 'services',
   Profile = 'profile',
   Feedback = 'feedback'
 }
@@ -54,6 +57,7 @@ export interface StudentProfile {
   email: string;
   email2?: string;
   phone: string;
+  officialNotice?: string;
 }
 
 export interface Course {
@@ -150,6 +154,7 @@ export interface AppState {
   lastSyncedAt?: string;
   serverTime?: string;
   rawLiveSchedule?: any;
+  officialNotice?: string;
   isSidebarCollapsed?: boolean;
 }
 
