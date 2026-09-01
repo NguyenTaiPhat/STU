@@ -2,6 +2,7 @@ import { type ViewModule, type AppState, type Notification } from '../types/port
 import { stateStore } from '../store/stateStore';
 import { icons } from '../utils/svgIcons';
 import { fetchAndApplyLiveSTUData } from '../services/stuLiveService';
+import { openModal, closeModal } from '../components/Modal';
 import { showToast } from '../components/Toast';
 
 export class NotificationsView implements ViewModule {
@@ -60,7 +61,7 @@ export class NotificationsView implements ViewModule {
           : '<span class="neo-badge neo-badge--cyan">Thông báo</span>';
 
         return `
-          <div class="neo-card anim-fade-in-up ${!n.isRead ? 'neo-card--unread' : ''}" style="margin-bottom:var(--space-sm);padding:12px 14px;border-left:3px solid ${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'}">
+          <div class="neo-card anim-fade-in-up notif-card-item ${!n.isRead ? 'neo-card--unread' : ''}" data-id="${n.id}" style="margin-bottom:var(--space-sm);padding:12px 14px;border-left:3px solid ${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'};cursor:pointer">
             <div class="flex items-start justify-between gap-sm flex-wrap">
               <div class="flex items-start gap-sm" style="flex:1;min-width:0">
                 <div style="width:30px;height:30px;border-radius:8px;background:${n.type === 'warning' ? 'var(--neo-coral-light)' : n.type === 'success' ? 'var(--neo-lime-light)' : 'var(--neo-primary-light)'};color:${n.type === 'warning' ? 'var(--neo-coral)' : n.type === 'success' ? 'var(--neo-lime)' : 'var(--neo-primary)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
@@ -72,11 +73,11 @@ export class NotificationsView implements ViewModule {
                     <span class="text-bold" style="font-size:13px;color:var(--neo-text)">${n.title}</span>
                     ${!n.isRead ? '<span class="neo-badge neo-badge--coral" style="font-size:9px;padding:1px 5px">Mới</span>' : ''}
                   </div>
-                  <div class="text-xs text-secondary" style="font-size:12px;line-height:1.45;margin-bottom:4px">
+                  <div class="text-xs text-secondary truncate" style="font-size:12px;line-height:1.45;margin-bottom:4px">
                     ${n.message}
                   </div>
                   <div class="text-xs text-secondary flex items-center gap-xs" style="font-size:11px">
-                    ${icons.clock(11)} <span>${n.date}</span>
+                    ${icons.clock(11)} <span>${n.date}</span> <span style="opacity:0.6">• Nhấn để xem chi tiết bự</span>
                   </div>
                 </div>
               </div>
@@ -105,11 +106,11 @@ export class NotificationsView implements ViewModule {
       </div>
 
       ${isOutsideHours ? `
-        <div class="neo-card anim-fade-in-up mobile-compact-card" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);border-left:3px solid var(--neo-coral);padding:10px 14px">
+        <div class="neo-card anim-fade-in-up mobile-compact-card notif-card-banner" style="margin-bottom:var(--space-md);background:var(--neo-bg-secondary);border-left:3px solid var(--neo-coral);padding:10px 14px;cursor:pointer">
           <div class="flex flex-col items-start gap-xs">
             <span class="neo-badge neo-badge--coral" style="font-size:9.5px;padding:2px 8px;margin-bottom:2px;letter-spacing:0.2px">KHUNG GIỜ KHÓA CỔNG MÁY CHỦ STU (07:00 - 19:00)</span>
             <div class="text-xs text-secondary" style="font-size:11.5px;line-height:1.45;color:var(--neo-text-primary)">
-              Máy chủ STU quy định cổng ĐKMH &amp; Thông báo chỉ hoạt động từ <strong>07:00 đến 19:00</strong> hàng ngày. Dữ liệu đang được đồng bộ trực tiếp cho sinh viên <strong>${s.profile.fullName}</strong> (${s.profile.id}).
+              Máy chủ STU quy định cổng ĐKMH &amp; Thông báo chỉ hoạt động từ <strong>07:00 đến 19:00</strong> hàng ngày. Dữ liệu đang được đồng bộ trực tiếp cho sinh viên <strong>${s.profile.fullName}</strong> (${s.profile.id}). <span style="color:var(--neo-primary);font-weight:600">[Xem chi tiết bự]</span>
             </div>
           </div>
         </div>
@@ -189,8 +190,24 @@ export class NotificationsView implements ViewModule {
 
     this.container?.querySelector('#btn-sync-notices')?.addEventListener('click', handleSync);
 
+    this.container?.querySelectorAll('.notif-card-item').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).classList.contains('btn-mark-read')) return;
+        const id = (card as HTMLElement).dataset.id;
+        if (!id) return;
+        const state = stateStore.getState();
+        const notif = state.notifications?.find(n => n.id === id);
+        if (notif) {
+          const updated = (state.notifications || []).map(n => n.id === id ? { ...n, isRead: true } : n);
+          stateStore.setState({ notifications: updated });
+          this.showDetailModal(notif);
+        }
+      });
+    });
+
     this.container?.querySelectorAll('.btn-mark-read').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const id = (e.currentTarget as HTMLElement).dataset.id;
         if (!id) return;
         const currentNotifs = stateStore.getState().notifications || [];
@@ -198,6 +215,19 @@ export class NotificationsView implements ViewModule {
         stateStore.setState({ notifications: updated });
         showToast('Đã đánh dấu thông báo là đã đọc', 'success');
       });
+    });
+
+    this.container?.querySelector('.notif-card-banner')?.addEventListener('click', () => {
+      const s = stateStore.getState();
+      const bannerNotif: Notification = {
+        id: 'banner-notif',
+        title: 'Quy định Khung giờ Hoạt động Cổng ĐKMH STU (07:00 - 19:00)',
+        message: `Theo quy định của Ban Quản trị hệ thống thông tin Trường Đại học Công nghệ Sài Gòn (STU):\n\n1. Cổng Đăng ký môn học và tra cứu dữ liệu AMIS STU mở cửa phục vụ sinh viên từ 07:00 đến 19:00 hàng ngày.\n2. Ngoài khung giờ hành chính này, máy chủ STU sẽ tạm thời khóa kết nối để thực hiện bảo trì hệ thống và lưu trữ dữ liệu.\n3. Sinh viên ${s.profile.fullName} (${s.profile.id}) thuộc Lớp ${s.profile.classCode} có thể xem thông báo từ bộ nhớ đệm đồng bộ và kiểm tra lại trực tiếp vào khung giờ 07:00 - 19:00 ngày tiếp theo.`,
+        type: 'warning',
+        date: '01/09/2026',
+        isRead: true
+      };
+      this.showDetailModal(bannerNotif);
     });
 
     this.container?.querySelector('#tab-cat-all')?.addEventListener('click', () => {
@@ -216,5 +246,47 @@ export class NotificationsView implements ViewModule {
       this.activeCategory = 'finance';
       this.render(stateStore.getState());
     });
+  }
+
+  private showDetailModal(n: Notification): void {
+    const el = document.createElement('div');
+    el.className = 'flex flex-col gap-md';
+    el.style.cssText = 'padding:var(--space-xs) 0;line-height:1.6;font-size:14px;';
+
+    const typeBadge = n.type === 'warning'
+      ? '<span class="neo-badge neo-badge--coral">Học vụ &amp; Đào tạo</span>'
+      : n.type === 'success'
+      ? '<span class="neo-badge neo-badge--lime">Tài chính &amp; Học phí</span>'
+      : '<span class="neo-badge neo-badge--cyan">Thông báo Ban Quản Trị</span>';
+
+    el.innerHTML = `
+      <div class="flex items-center gap-sm flex-wrap" style="margin-bottom:var(--space-xs)">
+        ${typeBadge}
+        <span class="text-xs text-secondary flex items-center gap-xs">
+          ${icons.clock(13)} <span>Ngày đăng: ${n.date}</span>
+        </span>
+      </div>
+
+      <div style="background:var(--neo-bg-secondary);padding:var(--space-sm) var(--space-md);border-radius:var(--neo-radius);border:1px solid var(--neo-border-color);margin-bottom:var(--space-xs)">
+        <div class="text-xs text-secondary" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.3px">Đơn vị phát hành:</div>
+        <div class="text-bold" style="color:var(--neo-primary);font-size:13px">
+          ${n.type === 'warning' ? 'Phòng Đào tạo (A101) - Trường ĐH Công nghệ Sài Gòn' : n.type === 'success' ? 'Phòng Kế hoạch - Tài chính (A105)' : 'Ban Quản trị Cổng AMIS STU'}
+        </div>
+      </div>
+
+      <div class="text-body" style="font-size:13.5px;color:var(--neo-text);line-height:1.65;white-space:pre-line;background:var(--neo-card-bg);padding:var(--space-md);border-radius:var(--neo-radius);border:1px solid var(--neo-border-color)">
+        ${n.message}
+      </div>
+
+      <div class="flex items-center justify-between gap-md" style="margin-top:var(--space-sm);padding-top:var(--space-sm);border-top:1px solid var(--neo-border-color)">
+        <span class="neo-badge neo-badge--lime" style="font-size:10.5px">
+          ${icons.check(11)} Đã xác thực từ Server STU
+        </span>
+        <button id="btn-modal-close" class="neo-btn neo-btn--primary neo-btn--sm" style="padding:5px 14px;font-size:12px">Đóng thông báo</button>
+      </div>
+    `;
+
+    el.querySelector('#btn-modal-close')?.addEventListener('click', () => closeModal());
+    openModal(n.title, el, { wide: true });
   }
 }
