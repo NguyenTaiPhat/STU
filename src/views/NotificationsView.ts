@@ -106,10 +106,10 @@ export class NotificationsView implements ViewModule {
 
       ${isOutsideHours ? `
         <div class="neo-card anim-fade-in-up" style="margin-bottom:var(--space-lg);background:var(--neo-bg-secondary);border-left:4px solid var(--neo-coral);padding:var(--space-md)">
-          <div class="flex items-center gap-sm">
-            <span class="neo-badge neo-badge--coral" style="font-size:10px;padding:3px 8px;flex-shrink:0">KHUNG GIỜ KHÓA CỔNG STU</span>
-            <div class="text-xs text-secondary" style="line-height:1.4">
-              Máy chủ STU quy định cổng ĐKMH & Thông báo chỉ mở từ <strong>07:00 đến 19:00</strong>. Dữ liệu thông báo hiện đang được đồng bộ trực tiếp từ bộ nhớ đệm STU cho sinh viên <strong>${s.profile.fullName}</strong>.
+          <div class="flex flex-col items-start gap-xs">
+            <span class="neo-badge neo-badge--coral" style="font-size:10.5px;padding:3px 10px;margin-bottom:4px">KHUNG GIỜ KHÓA CỔNG MÁY CHỦ STU (07:00 - 19:00)</span>
+            <div class="text-xs text-secondary" style="line-height:1.5;color:var(--neo-text-primary)">
+              Máy chủ STU quy định cổng ĐKMH &amp; Thông báo chỉ hoạt động từ <strong>07:00 đến 19:00</strong> hàng ngày. Dữ liệu đang được đồng bộ trực tiếp cho sinh viên <strong>${s.profile.fullName}</strong> (${s.profile.id}).
             </div>
           </div>
         </div>
