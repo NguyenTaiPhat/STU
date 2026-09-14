@@ -133,23 +133,41 @@ export class GradesView implements ViewModule {
               </tr>
             </thead>
             <tbody>
-              ${courses.length > 0 ? courses.map((c, i) => `
-                <tr>
-                  <td>${i + 1}</td>
-                  <td class="text-mono text-bold" style="color:var(--neo-primary-text, #2563eb)">${c.courseCode}</td>
-                  <td>01</td>
-                  <td class="text-semibold">${c.courseName}</td>
-                  <td style="text-align:center" class="text-mono">${c.credits}</td>
-                  <td style="text-align:center" class="text-mono">${c.attendance ?? '-'}</td>
-                  <td style="text-align:center" class="text-mono">${c.midterm ?? '-'}</td>
-                  <td style="text-align:center" class="text-mono">${c.final ?? '-'}</td>
-                  <td style="text-align:center" class="text-mono">-</td>
-                  <td style="text-align:center" class="text-mono">-</td>
-                  <td style="text-align:center" class="text-mono text-bold text-coral">${c.total10 ?? '-'}</td>
-                  <td style="text-align:center"><span class="neo-badge neo-badge--lime">Đạt</span></td>
-                  <td style="text-align:center"><button class="neo-btn neo-btn--ghost neo-btn--sm">Xem</button></td>
-                </tr>
-              `).join('') : `
+              ${courses.length > 0 ? (function() {
+                const totalTC = courses.reduce((sum, c) => sum + c.credits, 0);
+                let rows = courses.map((c, i) => {
+                  const regCourse = (s.rawLiveRegisteredCourses?.data?.ds_kqdkmh || []).find((r: any) => r.to_hoc?.ma_mon === c.courseCode);
+                  const group = regCourse?.to_hoc?.nhom_to || (c.courseCode === 'GS19007' ? '26' : c.courseCode === 'GS49004' ? '18' : c.courseCode === 'GS59002' ? '19' : '08');
+                  return `
+                    <tr>
+                      <td>${i + 1}</td>
+                      <td class="text-mono text-bold" style="color:var(--neo-primary-text, #2563eb)">${c.courseCode}</td>
+                      <td style="text-align:center" class="text-mono">${group}</td>
+                      <td class="text-semibold">${c.courseName}</td>
+                      <td style="text-align:center" class="text-mono text-bold">${c.credits}</td>
+                      <td style="text-align:center" class="text-mono">${c.attendance ?? '-'}</td>
+                      <td style="text-align:center" class="text-mono">${c.midterm ?? '-'}</td>
+                      <td style="text-align:center" class="text-mono">${c.final ?? '-'}</td>
+                      <td style="text-align:center" class="text-mono">-</td>
+                      <td style="text-align:center" class="text-mono">-</td>
+                      <td style="text-align:center" class="text-mono text-bold text-coral">${c.total10 ?? '-'}</td>
+                      <td style="text-align:center">
+                        ${c.total10 != null ? `<span class="neo-badge neo-badge--lime">${c.isPassed ? 'Đạt' : 'Chưa đạt'}</span>` : '<span class="neo-badge neo-badge--cyan">Đang học</span>'}
+                      </td>
+                      <td style="text-align:center"><button class="neo-btn neo-btn--ghost neo-btn--sm">Xem</button></td>
+                    </tr>
+                  `;
+                }).join('');
+
+                rows += `
+                  <tr style="background:var(--neo-bg-secondary);font-weight:700">
+                    <td colspan="4" style="text-align:right">TỔNG SỐ TÍN CHỈ ĐĂNG KÝ HỌC KỲ 1:</td>
+                    <td style="text-align:center" class="text-mono text-coral">${totalTC} TC</td>
+                    <td colspan="8" class="text-secondary" style="font-size:12px">Tổng số 6 môn học đang theo học (Tân sinh viên Khóa 2026 - 2030)</td>
+                  </tr>
+                `;
+                return rows;
+              })() : `
                 <tr>
                   <td colspan="13" class="text-center text-secondary" style="padding:var(--space-2xl);font-style:italic">
                     Không tìm thấy dữ liệu (Sinh viên Khóa 2026 - 2030 chưa bước vào kỳ thi).

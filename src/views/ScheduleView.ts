@@ -2,7 +2,7 @@ import { type ViewModule, type AppState, type Course, CourseType } from '../type
 import { stateStore } from '../store/stateStore';
 import { icons } from '../utils/svgIcons';
 import { getDayName, periodToTime, getPeriodStartTime } from '../utils/formatters';
-import { exportScheduleExcel } from '../utils/excelExport';
+import { exportScheduleExcel, exportScheduleWeekExcel } from '../utils/excelExport';
 import { showToast } from '../components/Toast';
 
 const DAYS = [2, 3, 4, 5, 6, 7, 1];
@@ -216,12 +216,52 @@ export class ScheduleView implements ViewModule {
     this.renderWeekGrid(slot, s.allCourses, rawWeeks);
     slot.querySelector('#btn-print-sch')?.addEventListener('click', () => window.print());
     slot.querySelector('#btn-excel-sch')?.addEventListener('click', () => {
-      exportScheduleExcel();
-      showToast('Đã xuất file Thời khóa biểu tuần thành công!', 'success');
+      exportScheduleWeekExcel(s.profile.id, this.selectedWeekNumber);
+      showToast(`Đã xuất file Thời khóa biểu tuần ${this.selectedWeekNumber} (.xlsx) thành công!`, 'success');
     });
   }
 
-  private renderSemesterSchedule(slot: Element, _s: AppState): void {
+  private renderSemesterSchedule(slot: Element, s: AppState): void {
+    const rawToHoc: any[] = s.rawLiveSemesterSchedule?.data?.ds_nhom_to || s.rawLiveSemesterSchedule?.data?.ds_to_hoc || [];
+    const totalTC = rawToHoc.reduce((acc, cur) => acc + (Number(cur.so_tc) || 0), 0);
+
+    let rowsHtml = '';
+    if (rawToHoc.length > 0) {
+      rowsHtml = rawToHoc.map((item: any) => `
+        <tr>
+          <td class="text-mono text-bold" style="color:var(--neo-primary)">${item.ma_mon}</td>
+          <td class="text-bold" style="color:var(--neo-text)">${item.ten_mon}</td>
+          <td>${item.gc_to_hoc || '-'}</td>
+          <td style="text-align:center" class="text-mono">${item.nhom_to}</td>
+          <td style="text-align:center" class="text-mono text-bold text-coral">${item.so_tc}</td>
+          <td class="text-mono">${item.lop}</td>
+          <td style="text-align:center" class="text-bold">Thứ ${item.thu}</td>
+          <td style="text-align:center" class="text-mono">${item.tbd}</td>
+          <td style="text-align:center" class="text-mono">${item.so_tiet}</td>
+          <td style="text-align:center" class="text-mono text-bold" style="color:var(--neo-cyan)">${item.phong}</td>
+          <td>${item.gv} ${item.dt_gv ? `<span class="text-xs text-secondary">(${item.dt_gv})</span>` : ''}</td>
+          <td class="text-xs text-secondary">${item.tkb}</td>
+        </tr>
+      `).join('');
+
+      rowsHtml += `
+        <tr style="background:var(--neo-bg-secondary);font-weight:700">
+          <td colspan="4" style="text-align:right">TỔNG SỐ TÍN CHỈ HỌC KỲ:</td>
+          <td style="text-align:center" class="text-mono text-coral">${totalTC} TC</td>
+          <td colspan="7" class="text-secondary" style="font-size:12px">Tổng cộng ${rawToHoc.length} môn học đã xếp lịch</td>
+        </tr>
+      `;
+    } else {
+      rowsHtml = `
+        <tr>
+          <td colspan="12" style="text-align:center;padding:var(--space-3xl) var(--space-xl);color:var(--neo-text-secondary)">
+            <div style="font-size:14px;font-weight:600;margin-bottom:4px">Không tìm thấy dữ liệu</div>
+            <div class="text-xs">Chưa có lịch học được phân bổ trong học kỳ này.</div>
+          </td>
+        </tr>
+      `;
+    }
+
     slot.innerHTML = `
       <div class="neo-card" style="margin-bottom:var(--space-lg);padding:var(--space-md) var(--space-lg)">
         <div class="flex items-center justify-between flex-wrap gap-md mobile-filter-stack">
@@ -260,12 +300,7 @@ export class ScheduleView implements ViewModule {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colspan="12" style="text-align:center;padding:var(--space-3xl) var(--space-xl);color:var(--neo-text-secondary)">
-                  <div style="font-size:14px;font-weight:600;margin-bottom:4px">Không tìm thấy dữ liệu</div>
-                  <div class="text-xs">Chưa có lịch học được phân bổ trong học kỳ này.</div>
-                </td>
-              </tr>
+              ${rowsHtml}
             </tbody>
           </table>
         </div>
@@ -274,8 +309,8 @@ export class ScheduleView implements ViewModule {
 
     slot.querySelector('#btn-print-sem')?.addEventListener('click', () => window.print());
     slot.querySelector('#btn-excel-sem')?.addEventListener('click', () => {
-      exportScheduleExcel();
-      showToast('Đã xuất file Thời khóa biểu học kỳ thành công!', 'success');
+      exportScheduleExcel(s.profile.id);
+      showToast('Đã xuất file Thời khóa biểu học kỳ (.xlsx) thành công!', 'success');
     });
   }
 
@@ -284,7 +319,8 @@ export class ScheduleView implements ViewModule {
     if (!wrap) return;
     wrap.innerHTML = '';
 
-    const currentWeekObj = rawWeeks.find(w => w.tuan_hoc_ky === this.selectedWeekNumber);
+    const currentWeekObj = rawWeeks.find(w => w.tuan_hoc_ky === this.selectedWeekNumber) || rawWeeks[0];
+    const weekClasses: any[] = currentWeekObj?.ds_thoi_khoa_bieu || [];
 
     const grid = document.createElement('div');
     grid.className = 'schedule-week-grid';
@@ -300,15 +336,28 @@ export class ScheduleView implements ViewModule {
       1: 'Chủ Nhật'
     };
 
+    // Calculate dates for the week
+    const parseDateVN = (str?: string): Date | null => {
+      if (!str) return null;
+      const parts = str.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+      return parts ? new Date(Number(parts[3]), Number(parts[2]) - 1, Number(parts[1])) : null;
+    };
+
+    const startDate = parseDateVN(currentWeekObj?.ngay_bat_dau);
+
     grid.innerHTML = '<div class="schedule-week-grid__header">Tiết</div>';
-    DAYS.forEach(d => {
+    DAYS.forEach((d, idx) => {
       const h = document.createElement('div');
       h.className = 'schedule-week-grid__header';
-      let dateInfo = '';
-      if (currentWeekObj?.ngay_bat_dau) {
-        dateInfo = ` (${currentWeekObj.ngay_bat_dau.slice(0, 5)})`;
+      let dateText = '';
+      if (startDate) {
+        const dDate = new Date(startDate);
+        dDate.setDate(startDate.getDate() + idx);
+        const dayNum = String(dDate.getDate()).padStart(2, '0');
+        const monthNum = String(dDate.getMonth() + 1).padStart(2, '0');
+        dateText = ` (${dayNum}/${monthNum})`;
       }
-      h.textContent = `${dayLabels[d]}${d === 2 && currentWeekObj ? dateInfo : ''}`;
+      h.textContent = `${dayLabels[d]}${dateText}`;
       grid.appendChild(h);
     });
 
@@ -321,6 +370,32 @@ export class ScheduleView implements ViewModule {
       DAYS.forEach(d => {
         const cell = document.createElement('div');
         cell.className = 'schedule-week-grid__cell';
+        cell.style.minHeight = '52px';
+        cell.style.height = '52px';
+
+        const cls = weekClasses.find(c => c.thu_kieu_so === d && c.tiet_bat_dau === p);
+        if (cls) {
+          const span = cls.so_tiet || 3;
+          const isPractice = String(cls.ten_mon).toLowerCase().includes('thực hành') ||
+            String(cls.ten_mon).toLowerCase().includes('thí nghiệm');
+
+          const block = document.createElement('div');
+          block.className = `schedule-course-block ${isPractice ? 'schedule-course-block--practice' : 'schedule-course-block--theory'}`;
+          block.style.top = '2px';
+          block.style.height = `calc(${span} * 52px - 4px)`;
+          block.style.zIndex = '5';
+          block.innerHTML = `
+            <div class="text-bold" style="font-size:11.5px;line-height:1.25;margin-bottom:3px">${cls.ten_mon}</div>
+            <div class="text-mono" style="font-size:10px;opacity:0.95">${cls.ma_mon} (Tổ ${cls.ma_nhom || '01'}) - ${cls.so_tin_chi || 0} TC</div>
+            <div style="margin-top:4px;font-size:10.5px">
+              Phòng: <strong>${cls.ma_phong || 'Chưa xếp'}</strong>
+            </div>
+            <div style="font-size:10px;opacity:0.9;margin-top:2px">GV: <strong>${cls.ten_giang_vien || 'Chưa phân công'}</strong></div>
+            <div style="font-size:9.5px;opacity:0.8;margin-top:2px">Tiết ${cls.tiet_bat_dau} - ${cls.tiet_bat_dau + span - 1}</div>
+          `;
+          cell.appendChild(block);
+        }
+
         grid.appendChild(cell);
       });
     });

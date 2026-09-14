@@ -68,7 +68,7 @@ export class RegistrationView implements ViewModule {
     }
   }
 
-  private renderCTDT(slot: Element, _s: AppState): void {
+  private renderCTDT(slot: Element, s: AppState): void {
     slot.innerHTML = `
       <div class="neo-card anim-fade-in-up" style="margin-bottom:var(--space-xl);padding:var(--space-lg)">
         <div class="flex items-center justify-between flex-wrap gap-md mobile-filter-stack" style="margin-bottom:var(--space-md)">
@@ -102,71 +102,105 @@ export class RegistrationView implements ViewModule {
               </tr>
             </thead>
             <tbody id="ctdt-rows-body">
-              <tr style="background:var(--neo-bg);font-weight:600">
-                <td colspan="3" style="color:var(--neo-text);font-weight:600">Học kỳ 1 - Năm học 2026 - 2027</td>
-                <td style="text-align:center" class="text-mono text-bold text-coral">14 TC</td>
-                <td colspan="4"></td>
-              </tr>
-              <tr class="ctdt-row">
-                <td style="text-align:center">1</td>
-                <td class="text-mono text-bold" style="color:var(--neo-primary)">GS19007</td>
-                <td class="text-semibold">Tiếng Anh 1</td>
-                <td style="text-align:center" class="text-mono">2</td>
-                <td style="text-align:center" class="text-bold">x</td>
-                <td style="text-align:center" class="text-mono">45</td>
-                <td style="text-align:center" class="text-mono">15</td>
-                <td style="text-align:center" class="text-mono">0</td>
-              </tr>
-              <tr class="ctdt-row">
-                <td style="text-align:center">2</td>
-                <td class="text-mono text-bold" style="color:var(--neo-primary)">GS33001</td>
-                <td class="text-semibold">Toán A1 (Hàm 1 biến, chuỗi)</td>
-                <td style="text-align:center" class="text-mono">4</td>
-                <td style="text-align:center" class="text-bold">x</td>
-                <td style="text-align:center" class="text-mono">60</td>
-                <td style="text-align:center" class="text-mono">45</td>
-                <td style="text-align:center" class="text-mono">0</td>
-              </tr>
-              <tr class="ctdt-row">
-                <td style="text-align:center">3</td>
-                <td class="text-mono text-bold" style="color:var(--neo-primary)">GS43001</td>
-                <td class="text-semibold">Vật lý 1</td>
-                <td style="text-align:center" class="text-mono">3</td>
-                <td style="text-align:center" class="text-bold">x</td>
-                <td style="text-align:center" class="text-mono">45</td>
-                <td style="text-align:center" class="text-mono">30</td>
-                <td style="text-align:center" class="text-mono">0</td>
-              </tr>
-              <tr class="ctdt-row">
-                <td style="text-align:center">4</td>
-                <td class="text-mono text-bold" style="color:var(--neo-primary)">GS49004</td>
-                <td class="text-semibold">Thí nghiệm Vật lý_Phần 1</td>
-                <td style="text-align:center" class="text-mono">1</td>
-                <td style="text-align:center" class="text-bold">x</td>
-                <td style="text-align:center" class="text-mono">15</td>
-                <td style="text-align:center" class="text-mono">0</td>
-                <td style="text-align:center" class="text-mono">15</td>
-              </tr>
-              <tr class="ctdt-row">
-                <td style="text-align:center">5</td>
-                <td class="text-mono text-bold" style="color:var(--neo-primary)">GS59001</td>
-                <td class="text-semibold">Tin học đại cương</td>
-                <td style="text-align:center" class="text-mono">2</td>
-                <td style="text-align:center" class="text-bold">x</td>
-                <td style="text-align:center" class="text-mono">30</td>
-                <td style="text-align:center" class="text-mono">30</td>
-                <td style="text-align:center" class="text-mono">0</td>
-              </tr>
-              <tr class="ctdt-row">
-                <td style="text-align:center">6</td>
-                <td class="text-mono text-bold" style="color:var(--neo-primary)">GS59002</td>
-                <td class="text-semibold">Thực hành Tin học đại cương</td>
-                <td style="text-align:center" class="text-mono">2</td>
-                <td style="text-align:center" class="text-bold">x</td>
-                <td style="text-align:center" class="text-mono">45</td>
-                <td style="text-align:center" class="text-mono">0</td>
-                <td style="text-align:center" class="text-mono">30</td>
-              </tr>
+              ${(function() {
+                const liveSemesters: any[] = s.rawLiveCurriculum?.data?.ds_CTDT_hocky || [];
+                if (liveSemesters.length > 0) {
+                  let html = '';
+                  liveSemesters.forEach((sem: any) => {
+                    const courses: any[] = sem.ds_CTDT_mon_hoc || [];
+                    const semTc = courses.reduce((sum, c) => sum + (Number(c.so_tin_chi) || 0), 0);
+                    html += `
+                      <tr style="background:var(--neo-bg);font-weight:600">
+                        <td colspan="3" style="color:var(--neo-text);font-weight:600">${sem.ten_hoc_ky || 'Học kỳ'}</td>
+                        <td style="text-align:center" class="text-mono text-bold text-coral">${semTc} TC</td>
+                        <td colspan="4"></td>
+                      </tr>
+                    `;
+                    courses.forEach((c: any, idx: number) => {
+                      html += `
+                        <tr class="ctdt-row">
+                          <td style="text-align:center">${idx + 1}</td>
+                          <td class="text-mono text-bold" style="color:var(--neo-primary)">${c.ma_mon || ''}</td>
+                          <td class="text-semibold">${c.ten_mon || ''}</td>
+                          <td style="text-align:center" class="text-mono">${c.so_tin_chi || 0}</td>
+                          <td style="text-align:center" class="text-bold">${c.mon_bat_buoc || 'x'}</td>
+                          <td style="text-align:center" class="text-mono">${c.tong_tiet || (Number(c.so_tin_chi || 0) * 15)}</td>
+                          <td style="text-align:center" class="text-mono">${c.ly_thuyet || '0'}</td>
+                          <td style="text-align:center" class="text-mono">${c.thuc_hanh || '0'}</td>
+                        </tr>
+                      `;
+                    });
+                  });
+                  return html;
+                }
+                return `
+                  <tr style="background:var(--neo-bg);font-weight:600">
+                    <td colspan="3" style="color:var(--neo-text);font-weight:600">Học kỳ 1 - Năm học 2026 - 2027</td>
+                    <td style="text-align:center" class="text-mono text-bold text-coral">14 TC</td>
+                    <td colspan="4"></td>
+                  </tr>
+                  <tr class="ctdt-row">
+                    <td style="text-align:center">1</td>
+                    <td class="text-mono text-bold" style="color:var(--neo-primary)">GS19007</td>
+                    <td class="text-semibold">Tiếng Anh 1</td>
+                    <td style="text-align:center" class="text-mono">2</td>
+                    <td style="text-align:center" class="text-bold">x</td>
+                    <td style="text-align:center" class="text-mono">45</td>
+                    <td style="text-align:center" class="text-mono">15</td>
+                    <td style="text-align:center" class="text-mono">0</td>
+                  </tr>
+                  <tr class="ctdt-row">
+                    <td style="text-align:center">2</td>
+                    <td class="text-mono text-bold" style="color:var(--neo-primary)">GS33001</td>
+                    <td class="text-semibold">Toán A1 (Hàm 1 biến, chuỗi)</td>
+                    <td style="text-align:center" class="text-mono">4</td>
+                    <td style="text-align:center" class="text-bold">x</td>
+                    <td style="text-align:center" class="text-mono">60</td>
+                    <td style="text-align:center" class="text-mono">45</td>
+                    <td style="text-align:center" class="text-mono">0</td>
+                  </tr>
+                  <tr class="ctdt-row">
+                    <td style="text-align:center">3</td>
+                    <td class="text-mono text-bold" style="color:var(--neo-primary)">GS43001</td>
+                    <td class="text-semibold">Vật lý 1</td>
+                    <td style="text-align:center" class="text-mono">3</td>
+                    <td style="text-align:center" class="text-bold">x</td>
+                    <td style="text-align:center" class="text-mono">45</td>
+                    <td style="text-align:center" class="text-mono">30</td>
+                    <td style="text-align:center" class="text-mono">0</td>
+                  </tr>
+                  <tr class="ctdt-row">
+                    <td style="text-align:center">4</td>
+                    <td class="text-mono text-bold" style="color:var(--neo-primary)">GS49004</td>
+                    <td class="text-semibold">Thí nghiệm Vật lý_Phần 1</td>
+                    <td style="text-align:center" class="text-mono">1</td>
+                    <td style="text-align:center" class="text-bold">x</td>
+                    <td style="text-align:center" class="text-mono">15</td>
+                    <td style="text-align:center" class="text-mono">0</td>
+                    <td style="text-align:center" class="text-mono">15</td>
+                  </tr>
+                  <tr class="ctdt-row">
+                    <td style="text-align:center">5</td>
+                    <td class="text-mono text-bold" style="color:var(--neo-primary)">GS59001</td>
+                    <td class="text-semibold">Tin học đại cương</td>
+                    <td style="text-align:center" class="text-mono">2</td>
+                    <td style="text-align:center" class="text-bold">x</td>
+                    <td style="text-align:center" class="text-mono">30</td>
+                    <td style="text-align:center" class="text-mono">30</td>
+                    <td style="text-align:center" class="text-mono">0</td>
+                  </tr>
+                  <tr class="ctdt-row">
+                    <td style="text-align:center">6</td>
+                    <td class="text-mono text-bold" style="color:var(--neo-primary)">GS59002</td>
+                    <td class="text-semibold">Thực hành Tin học đại cương</td>
+                    <td style="text-align:center" class="text-mono">2</td>
+                    <td style="text-align:center" class="text-bold">x</td>
+                    <td style="text-align:center" class="text-mono">45</td>
+                    <td style="text-align:center" class="text-mono">0</td>
+                    <td style="text-align:center" class="text-mono">30</td>
+                  </tr>
+                `;
+              })()}
             </tbody>
           </table>
         </div>
@@ -259,16 +293,52 @@ export class RegistrationView implements ViewModule {
                   <th style="text-align:center">Số TC</th>
                   <th>Lớp</th>
                   <th>Ngày đăng ký</th>
-                  <th>Trạng thái</th>
+                  <th style="text-align:center">Trạng thái</th>
                   <th>Thời khóa biểu</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colspan="9" style="text-align:center;padding:var(--space-xl);color:var(--neo-text-secondary)">
-                    <div style="font-size:13.5px;font-weight:600">Không tìm thấy dữ liệu</div>
-                  </td>
-                </tr>
+                ${(function() {
+                  const rawKq: any[] = s.rawLiveRegisteredCourses?.data?.ds_kqdkmh || [];
+                  if (rawKq.length === 0) {
+                    return `
+                      <tr>
+                        <td colspan="9" style="text-align:center;padding:var(--space-xl);color:var(--neo-text-secondary)">
+                          <div style="font-size:13.5px;font-weight:600">Không tìm thấy dữ liệu</div>
+                        </td>
+                      </tr>
+                    `;
+                  }
+                  let totalTC = 0;
+                  let rows = rawKq.map((item: any) => {
+                    const toHoc = item.to_hoc || {};
+                    const tc = Number(toHoc.so_tc || 0);
+                    totalTC += tc;
+                    const regDateStr = item.ngay_dang_ky ? item.ngay_dang_ky.replace('T', ' ').slice(0, 16) : '07/09/2026';
+                    return `
+                      <tr>
+                        <td style="text-align:center"><span class="neo-badge neo-badge--warning" style="font-size:10px;padding:2px 6px" title="${item.dien_giai_enable_xoa || 'Ngoài thời gian cho phép'}">Khóa</span></td>
+                        <td class="text-mono text-bold" style="color:var(--neo-primary)">${toHoc.ma_mon}</td>
+                        <td class="text-bold" style="color:var(--neo-text)">${toHoc.ten_mon}</td>
+                        <td style="text-align:center" class="text-mono">${toHoc.nhom_to}</td>
+                        <td style="text-align:center" class="text-mono text-bold text-coral">${toHoc.so_tc}</td>
+                        <td class="text-mono">${toHoc.lop}</td>
+                        <td class="text-xs text-secondary">${regDateStr}</td>
+                        <td style="text-align:center"><span class="neo-badge neo-badge--lime">Chính thức</span></td>
+                        <td class="text-xs text-secondary">${toHoc.tkb}</td>
+                      </tr>
+                    `;
+                  }).join('');
+
+                  rows += `
+                    <tr style="background:var(--neo-bg-secondary);font-weight:700">
+                      <td colspan="4" style="text-align:right">TỔNG CỘNG TÍN CHỈ ĐÃ ĐĂNG KÝ:</td>
+                      <td style="text-align:center" class="text-mono text-coral">${totalTC} TC</td>
+                      <td colspan="4" class="text-secondary" style="font-size:12px">Đã xác nhận đăng ký thành công ${rawKq.length} môn học</td>
+                    </tr>
+                  `;
+                  return rows;
+                })()}
               </tbody>
             </table>
           </div>

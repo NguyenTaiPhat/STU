@@ -26,29 +26,35 @@ export class DashboardView implements ViewModule {
 
     const gpa4 = getCumulativeGPA4(s.grades);
     const totalCredits = getCumulativeCredits(s.grades);
+    const registeredCredits = s.allCourses.reduce((sum, c) => sum + c.credits, 0) || 14;
 
     const now = new Date();
     const dayNames = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
     const dateStr = `${dayNames[now.getDay()]}, ngày ${padZero(now.getDate())} tháng ${padZero(now.getMonth() + 1)} năm ${now.getFullYear()}`;
+
+    const nowDay = now.getDay();
+    const currentSTUDay = nowDay === 0 ? 1 : nowDay + 1;
+    const todayClasses = s.allCourses.filter(c => c.dayOfWeek === currentSTUDay);
+    const todayPeriods = todayClasses.reduce((sum, c) => sum + (c.endPeriod - c.startPeriod + 1), 0);
 
     this.container.innerHTML = `
       <div class="neo-card anim-fade-in-scale" style="margin-bottom:var(--space-2xl);background:linear-gradient(135deg, #0284C7 0%, #0369A1 100%);color:#FFFFFF;border:none;box-shadow:0 10px 25px -5px rgba(2,132,199,0.3)">
         <div class="flex items-center justify-between flex-wrap gap-md">
           <div>
             <div class="flex items-center gap-sm" style="margin-bottom:var(--space-xs)">
-              <span class="neo-badge anim-breathe" style="background:rgba(255,255,255,0.2);color:#FFF;border:none">Tân sinh viên</span>
+              <span class="neo-badge anim-breathe" style="background:rgba(255,255,255,0.2);color:#FFF;border:none">Tân sinh viên Khóa 2026</span>
               <span style="opacity:0.8;font-size:12.5px">${dateStr}</span>
             </div>
             <h1 class="text-heading text-2xl text-bold" style="color:#FFF;letter-spacing:-0.5px">
-              Xin chào, ${s.profile.fullName}!
+              Xin chào, ${s.profile.fullName || 'Nguyễn Tài Phát'}!
             </h1>
             <p style="opacity:0.9;font-size:13.5px;margin-top:4px">
-              Chào mừng bạn đến với Cổng thông tin học vụ Trường Đại học Công nghệ Sài Gòn (STU).
+              Cổng thông tin sinh viên AMIS - Trường Đại học Công nghệ Sài Gòn (STU).
             </p>
           </div>
           <div class="flex items-center gap-sm">
             <span class="neo-badge" style="background:#FFFFFF;color:#0369A1;font-weight:700;border:none;padding:6px 14px">
-              Niên khóa: ${s.profile.academicYear}
+              Niên khóa: ${s.profile.academicYear || '2026 - 2030'}
             </span>
           </div>
         </div>
@@ -58,25 +64,25 @@ export class DashboardView implements ViewModule {
         <div class="neo-card neo-card--interactive kpi-card" onclick="location.hash='#grades'">
           <div class="kpi-card__icon" style="background:var(--neo-lime-light);color:var(--neo-lime)">${icons.award(20)}</div>
           <div class="kpi-card__value" id="kpi-gpa-val">0.00</div>
-          <div class="text-sm text-secondary">Chưa có điểm thi</div>
+          <div class="text-sm text-secondary">Học kỳ 1 (Chờ thi)</div>
           <div class="kpi-card__label">GPA Tích lũy</div>
         </div>
         <div class="neo-card neo-card--interactive kpi-card" onclick="location.hash='#registration'">
           <div class="kpi-card__icon" style="background:var(--neo-primary-light);color:var(--neo-primary)">${icons.bookOpen(20)}</div>
-          <div class="kpi-card__value">0 / 14</div>
-          <div class="text-sm text-secondary">Kế hoạch HK1: 14 TC</div>
-          <div class="kpi-card__label">Tín chỉ Tích lũy</div>
+          <div class="kpi-card__value">${totalCredits} / ${registeredCredits}</div>
+          <div class="text-sm text-secondary">Đã xếp ${s.allCourses.length || 6} môn (${registeredCredits} TC)</div>
+          <div class="kpi-card__label">Tín chỉ Đã đăng ký</div>
         </div>
         <div class="neo-card neo-card--interactive kpi-card" onclick="location.hash='#schedule'">
           <div class="kpi-card__icon" style="background:var(--neo-lavender-light);color:var(--neo-lavender)">${icons.calendar(20)}</div>
-          <div class="kpi-card__value">0 môn</div>
-          <div class="text-sm text-secondary">Khai giảng 14/09/2026</div>
+          <div class="kpi-card__value">${todayClasses.length > 0 ? `${todayClasses.length} môn` : '0 môn'}</div>
+          <div class="text-sm text-secondary">${todayClasses.length > 0 ? `${todayPeriods} tiết học` : 'Tiết tiếp: Thứ 3 (12:35)'}</div>
           <div class="kpi-card__label">Lịch học Hôm nay</div>
         </div>
         <div class="neo-card neo-card--interactive kpi-card" onclick="location.hash='#finance'">
           <div class="kpi-card__icon" style="background:var(--neo-cyan-light);color:var(--neo-cyan)">${icons.creditCard(20)}</div>
           <div class="kpi-card__value">0 VNĐ</div>
-          <div class="text-sm text-secondary">Đã thu 21.535.000 VNĐ</div>
+          <div class="text-sm text-secondary">Đã thu đủ 21.535.000 VNĐ</div>
           <div class="kpi-card__label">Học phí Còn nợ</div>
         </div>
       </div>
@@ -92,7 +98,8 @@ export class DashboardView implements ViewModule {
             <div class="profile-info-item"><span class="profile-info-item__label">Ngày sinh</span><span class="profile-info-item__value">${s.profile.dob}</span></div>
             <div class="profile-info-item"><span class="profile-info-item__label">Giới tính</span><span class="profile-info-item__value">${s.profile.gender}</span></div>
             <div class="profile-info-item"><span class="profile-info-item__label">Số CCCD</span><span class="profile-info-item__value text-mono">${s.profile.citizenId || '051208000136'}</span></div>
-            <div class="profile-info-item"><span class="profile-info-item__label">Trạng thái</span><span class="profile-info-item__value"><span class="neo-badge neo-badge--lime">Đang học</span></span></div>
+            <div class="profile-info-item"><span class="profile-info-item__label">Điện thoại</span><span class="profile-info-item__value text-mono">${s.profile.phone || '0793479747'}</span></div>
+            <div class="profile-info-item"><span class="profile-info-item__label">Trạng thái</span><span class="profile-info-item__value"><span class="neo-badge neo-badge--lime">${s.profile.status || 'Đang học'}</span></span></div>
           </div>
         </div>
 
@@ -102,11 +109,13 @@ export class DashboardView implements ViewModule {
           </h3>
           <div class="profile-info-grid">
             <div class="profile-info-item"><span class="profile-info-item__label">Lớp sinh hoạt</span><span class="profile-info-item__value text-mono text-bold">${s.profile.classCode}</span></div>
+            <div class="profile-info-item"><span class="profile-info-item__label">Khối</span><span class="profile-info-item__value text-mono">${s.profile.blockCode || 'D26_TH'}</span></div>
             <div class="profile-info-item"><span class="profile-info-item__label">Ngành học</span><span class="profile-info-item__value text-bold">${s.profile.major}</span></div>
-            <div class="profile-info-item"><span class="profile-info-item__label">Khoa chuyên môn</span><span class="profile-info-item__value">${s.profile.faculty}</span></div>
+            <div class="profile-info-item"><span class="profile-info-item__label">Khoa</span><span class="profile-info-item__value">${s.profile.faculty}</span></div>
             <div class="profile-info-item"><span class="profile-info-item__label">Bậc đào tạo</span><span class="profile-info-item__value">${s.profile.degreeLevel || 'Đại học chính quy'}</span></div>
             <div class="profile-info-item"><span class="profile-info-item__label">Khóa học</span><span class="profile-info-item__value text-mono">${s.profile.academicYear}</span></div>
-            <div class="profile-info-item"><span class="profile-info-item__label">Email sinh viên</span><span class="profile-info-item__value text-mono text-sm">${s.profile.email}</span></div>
+            <div class="profile-info-item"><span class="profile-info-item__label">CVHT</span><span class="profile-info-item__value text-bold" style="color:var(--neo-primary)">${s.profile.advisor || 'Nguyễn Thị Thanh Xuân'}</span></div>
+            <div class="profile-info-item"><span class="profile-info-item__label">Email SV</span><span class="profile-info-item__value text-mono text-sm">${s.profile.email}</span></div>
           </div>
         </div>
       </div>

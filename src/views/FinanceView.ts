@@ -55,8 +55,8 @@ export class FinanceView implements ViewModule {
             <thead>
               <tr>
                 <th style="width:40px;text-align:center">Stt</th>
-                <th>Niên học học kỳ</th>
-                <th class="text-right">HP chưa giảm</th>
+                <th>Khoản mục / Niên học</th>
+                <th class="text-right">Mức thu</th>
                 <th class="text-right">Miễn giảm</th>
                 <th class="text-right">Phải thu</th>
                 <th class="text-right">Đã thu</th>
@@ -65,27 +65,37 @@ export class FinanceView implements ViewModule {
             </thead>
             <tbody>
               <tr class="group-header">
-                <td colspan="7">Thu Học Phí</td>
+                <td colspan="7">Học kỳ 1 - Năm học 2026 - 2027 (Khóa 2026)</td>
               </tr>
               <tr>
                 <td style="text-align:center">1</td>
-                <td>Học kỳ 1 - Năm học 2026 - 2027</td>
-                <td class="text-right text-mono">21,535,000</td>
+                <td class="text-semibold">Học phí chính khóa (14 Tín chỉ)</td>
+                <td class="text-right text-mono">21,025,000</td>
                 <td class="text-right text-mono">0</td>
-                <td class="text-right text-mono text-bold">21,535,000</td>
-                <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">21,535,000</td>
+                <td class="text-right text-mono text-bold">21,025,000</td>
+                <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">21,025,000</td>
                 <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">0</td>
               </tr>
-              <tr class="group-header text-bold">
-                <td colspan="2" style="text-align:center">TỔNG</td>
-                <td class="text-right text-mono">21,535,000</td>
+              <tr>
+                <td style="text-align:center">2</td>
+                <td class="text-semibold">Lệ phí hồ sơ nhập học</td>
+                <td class="text-right text-mono">300,000</td>
                 <td class="text-right text-mono">0</td>
-                <td class="text-right text-mono text-bold">21,535,000</td>
-                <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">21,535,000</td>
+                <td class="text-right text-mono text-bold">300,000</td>
+                <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">300,000</td>
                 <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">0</td>
               </tr>
-              <tr class="text-bold" style="background:var(--neo-bg-secondary)">
-                <td colspan="2" style="text-align:center">TỔNG CỘNG</td>
+              <tr>
+                <td style="text-align:center">3</td>
+                <td class="text-semibold">Life (BrE) (VNEd) A1-A2: Student Book with Code Online</td>
+                <td class="text-right text-mono">210,000</td>
+                <td class="text-right text-mono">0</td>
+                <td class="text-right text-mono text-bold">210,000</td>
+                <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">210,000</td>
+                <td class="text-right text-mono text-bold" style="color:var(--neo-lime-text)">0</td>
+              </tr>
+              <tr class="group-header text-bold" style="background:var(--neo-bg-secondary)">
+                <td colspan="2" style="text-align:center">TỔNG CỘNG HỌC KỲ 1</td>
                 <td class="text-right text-mono">21,535,000</td>
                 <td class="text-right text-mono">0</td>
                 <td class="text-right text-mono text-bold">21,535,000</td>
@@ -121,12 +131,12 @@ export class FinanceView implements ViewModule {
                 <td>1</td>
                 <td class="text-mono text-bold" style="color:var(--neo-primary)">${s.profile.id}</td>
                 <td class="text-semibold">${s.profile.fullName}</td>
-                <td class="text-mono text-bold">12941</td>
+                <td class="text-mono text-bold">BL2161.26</td>
                 <td class="text-mono text-bold" style="text-align:right">21,535,000</td>
-                <td>20/08/2026</td>
-                <td>Học phí</td>
+                <td>20/08/2026 11:30:24</td>
+                <td>Học phí (21.025.000) + Lệ phí nhập học (300.000) + Giáo trình Life (210.000)</td>
                 <td style="text-align:center">
-                  <button id="btn-view-inv-12941" class="neo-btn neo-btn--ghost neo-btn--sm">
+                  <button id="btn-view-inv-bl2161" class="neo-btn neo-btn--ghost neo-btn--sm">
                     ${icons.download(14)} PDF
                   </button>
                 </td>
@@ -138,7 +148,7 @@ export class FinanceView implements ViewModule {
 
       <div class="flex gap-md flex-wrap anim-fade-in-up anim-delay-4 mobile-actions-stack" style="margin-bottom:var(--space-xl)">
         <button id="btn-show-receipt" class="neo-btn neo-btn--ghost">
-          ${icons.fileText(16)} Xem Biên lai (21.535.000 VNĐ)
+          ${icons.fileText(16)} Xem Biên lai (BL2161.26 - 21.535.000 VNĐ)
         </button>
         <button id="btn-show-qr" class="neo-btn neo-btn--cyan anim-pulse-primary">
           ${icons.qrCode(16)} Cổng VietQR STU
@@ -243,9 +253,9 @@ export class FinanceView implements ViewModule {
     });
     this.container?.querySelector('#btn-excel')?.addEventListener('click', () => {
       exportTuitionExcel(s.profile.id);
-      showToast(`Đã xuất file BangTongHopHocPhi_${s.profile.id}.xls thành công!`, 'success');
+      showToast(`Đã xuất file BangTongHopHocPhi_${s.profile.id}.xlsx thành công!`, 'success');
     });
-    this.container?.querySelector('#btn-view-inv-12941')?.addEventListener('click', () => {
+    this.container?.querySelector('#btn-view-inv-bl2161')?.addEventListener('click', () => {
       this.showReceiptModal(s);
     });
     this.container?.querySelector('#btn-show-receipt')?.addEventListener('click', () => {
@@ -262,26 +272,29 @@ export class FinanceView implements ViewModule {
     el.innerHTML = `
       <div class="receipt__header">
         <div class="text-heading text-2xl text-bold">TRƯỜNG ĐẠI HỌC CÔNG NGHỆ SÀI GÒN</div>
-        <div class="text-heading text-lg text-bold" style="margin-top:var(--space-sm)">HÓA ĐƠN HỌC PHÍ ĐIỆN TỬ</div>
+        <div class="text-heading text-lg text-bold" style="margin-top:var(--space-sm)">HÓA ĐƠN HỌC PHÍ ĐIỆN TỬ &amp; LỆ PHÍ</div>
       </div>
       <div class="receipt__row"><span>Mã sinh viên</span><span class="text-mono text-bold">${s.profile.id}</span></div>
       <div class="receipt__row"><span>Họ tên</span><span class="text-bold">${s.profile.fullName}</span></div>
       <div class="receipt__row"><span>Lớp</span><span>${s.profile.classCode}</span></div>
-      <div class="receipt__row"><span>Khoản thu</span><span>Học phí Học kỳ 1 (14 Tín chỉ)</span></div>
-      <div class="receipt__row"><span>Học kỳ</span><span>Học kỳ 1 (2026 - 2027)</span></div>
-      <div class="receipt__row"><span>Ngày thanh toán</span><span>20/08/2026 10:00:00</span></div>
-      <div class="receipt__row"><span>Số hóa đơn</span><span class="text-mono text-bold">12941</span></div>
-      <div class="receipt__row receipt__total"><span>Tổng tiền đã thu</span><span class="text-mono">21,535,000 VNĐ</span></div>
+      <div class="receipt__row"><span>Khoản thu 1</span><span>Học phí Học kỳ 1 (14 Tín chỉ): 21.025.000 VNĐ</span></div>
+      <div class="receipt__row"><span>Khoản thu 2</span><span>Lệ phí hồ sơ nhập học: 300.000 VNĐ</span></div>
+      <div class="receipt__row"><span>Khoản thu 3</span><span>Life (BrE) (VNEd) A1-A2 Student Book: 210.000 VNĐ</span></div>
+      <div class="receipt__row"><span>Học kỳ</span><span>Học kỳ 1 (Năm học 2026 - 2027)</span></div>
+      <div class="receipt__row"><span>Ngày thanh toán</span><span>20/08/2026 11:30:24</span></div>
+      <div class="receipt__row"><span>Số biên lai / Phiếu thu</span><span class="text-mono text-bold">BL2161.26</span></div>
+      <div class="receipt__row receipt__total"><span>Tổng tiền đã thu</span><span class="text-mono text-bold">21,535,000 VNĐ</span></div>
+      <div class="receipt__row" style="color:var(--neo-lime-text);font-weight:700"><span>Trạng thái</span><span>Đã quyết toán hoàn tất (Còn nợ: 0 VNĐ)</span></div>
     `;
 
     const printBtn = document.createElement('button');
     printBtn.className = 'neo-btn neo-btn--primary w-full';
     printBtn.style.marginTop = 'var(--space-xl)';
-    printBtn.innerHTML = `${icons.printer(16)} In Hóa đơn`;
+    printBtn.innerHTML = `${icons.printer(16)} In Hóa đơn / Biên lai`;
     printBtn.addEventListener('click', () => window.print());
     el.appendChild(printBtn);
 
-    openModal('Hóa đơn Điện tử số 12941', el, { wide: true });
+    openModal('Biên lai Điện tử STU: BL2161.26', el, { wide: true });
   }
 
   private showQRModal(s: AppState): void {

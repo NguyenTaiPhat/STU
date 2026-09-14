@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STU AMIS Auto Login</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <div>
+          <div class="brand-title">STU AMIS</div>
+          <div class="brand-sub">TỰ ĐỘNG ĐĂNG NHẬP</div>
+        </div>
+      </div>
+      <span class="badge">V1.0</span>
+    </header>
+
+    <div class="card">
+      <form id="config-form">
+        <div class="form-group">
+          <label for="username">Mã sinh viên (MSSV)</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" id="username" placeholder="Ví dụ: DH05260789" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mật khẩu tài khoản</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="password" placeholder="Nhập mật khẩu" required autocomplete="current-password">
+            <button type="button" id="btn-toggle-pwd" class="icon-btn" title="Hiện/ẩn mật khẩu">
+              <svg id="eye-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle-label" for="auto-login">
+            <input type="checkbox" id="auto-login" checked>
+            <span class="toggle-custom"></span>
+            <span class="toggle-text">Tự động đăng nhập khi vào trang</span>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="btn-save" class="btn btn-primary">
+            Lưu Cấu Hình
+          </button>
+          <button type="button" id="btn-open-portal" class="btn btn-secondary">
+            Mở Cổng STU AMIS
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <footer class="footer">
+      Dành cho sinh viên Trường Đại học Công nghệ Sài Gòn
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -153,7 +153,14 @@ export interface AppState {
   isLiveConnected?: boolean;
   lastSyncedAt?: string;
   serverTime?: string;
+  rawLiveCurriculum?: any;
   rawLiveSchedule?: any;
+  rawLiveSemesterSchedule?: any;
+  rawLiveRegisteredCourses?: any;
+  rawLiveTuitionSummary?: any;
+  rawLiveTuitionDetail?: any;
+  rawLiveGrades?: any;
+  rawLiveAttendance?: any;
   officialNotice?: string;
   isSidebarCollapsed?: boolean;
 }

@@ -62,7 +62,19 @@ function stuLiveBridgePlugin(): Plugin {
                 'idpc': '0'
               };
 
-              const [infoRes, scheduleRes, tuitionRes, gradesRes, noticesRes, serverTimeRes, registeredCoursesRes, ctdtRes] = await Promise.allSettled([
+              const [
+                infoRes,
+                scheduleRes,
+                semesterScheduleRes,
+                tuitionSummaryRes,
+                tuitionDetailRes,
+                gradesRes,
+                noticesRes,
+                serverTimeRes,
+                registeredCoursesRes,
+                curriculumRes,
+                attendanceRes
+              ] = await Promise.allSettled([
                 fetch('http://amis01.stu.edu.vn/api/dkmh/w-locsinhvieninfo', {
                   method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json()),
@@ -74,14 +86,27 @@ function stuLiveBridgePlugin(): Plugin {
                     additional: { paging: { limit: 100, page: 1 }, ordering: [{ name: null, order_type: null }] }
                   })
                 }).then(r => r.json()),
-                fetch('http://amis01.stu.edu.vn/api/merchant/w-locdsphieubaohocphisinhvien', {
+                fetch('http://amis01.stu.edu.vn/api/sch/w-locdstkbhockytheodoituong', {
+                  method: 'POST',
+                  headers,
+                  body: JSON.stringify({ hoc_ky: 20261, loai_doi_tuong: 1, id_du_lieu: null })
+                }).then(r => r.json()),
+                fetch('http://amis01.stu.edu.vn/api/rms/w-locdstonghophocphisv', {
                   method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json()),
-                fetch('http://amis01.stu.edu.vn/api/srm/w-locketquadiemsinhvien', {
+                fetch('http://amis01.stu.edu.vn/api/rms/w-locdschitiethocphisvtheohocky', {
+                  method: 'POST', headers, body: JSON.stringify({ filter: { hoc_ky: 20261 } })
+                }).then(r => r.json()),
+                fetch('http://amis01.stu.edu.vn/api/srm/w-locdsdiemsinhvien?hien_thi_mon_theo_hkdk=false', {
                   method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json()),
-                fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdsthongbao', {
-                  method: 'POST', headers, body: JSON.stringify({})
+                fetch('http://amis01.stu.edu.vn/api/web/w-locdsthongbao', {
+                  method: 'POST',
+                  headers,
+                  body: JSON.stringify({
+                    filter: { id: null, is_noi_dung: true, is_web: true },
+                    additional: { paging: { limit: 100, page: 1 }, ordering: [{ name: 'ngay_gui', order_type: 1 }] }
+                  })
                 }).then(r => r.json()),
                 fetch('http://amis01.stu.edu.vn/api/hsba/w-gettimeserver', {
                   method: 'GET', headers
@@ -89,8 +114,18 @@ function stuLiveBridgePlugin(): Plugin {
                 fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdskqdkmhsinhvien', {
                   method: 'POST', headers, body: JSON.stringify({})
                 }).then(r => r.json()),
-                fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdsctdtsinhvien', {
-                  method: 'POST', headers, body: JSON.stringify({})
+                fetch('http://amis01.stu.edu.vn/api/sch/w-locdsctdtsinhvien', {
+                  method: 'POST',
+                  headers,
+                  body: JSON.stringify({
+                    filter: { loai_chuong_trinh_dao_tao: 1 },
+                    additional: { paging: { limit: 500, page: 1 }, ordering: [{ name: null, order_type: null }] }
+                  })
+                }).then(r => r.json()),
+                fetch('http://amis01.stu.edu.vn/api/schPlus/w-LocDuLieuSinhVienDiemDanh?nhhk=20261', {
+                  method: 'POST',
+                  headers,
+                  body: JSON.stringify({ nhhk: 20261 })
                 }).then(r => r.json())
               ]);
 
@@ -136,12 +171,15 @@ function stuLiveBridgePlugin(): Plugin {
                 },
                 rawLive: {
                   info: svInfo,
+                  curriculum: curriculumRes.status === 'fulfilled' ? curriculumRes.value : null,
                   schedule: scheduleRes.status === 'fulfilled' ? scheduleRes.value : null,
-                  tuition: tuitionRes.status === 'fulfilled' ? tuitionRes.value : null,
+                  semesterSchedule: semesterScheduleRes.status === 'fulfilled' ? semesterScheduleRes.value : null,
+                  tuitionSummary: tuitionSummaryRes.status === 'fulfilled' ? tuitionSummaryRes.value : null,
+                  tuitionDetail: tuitionDetailRes.status === 'fulfilled' ? tuitionDetailRes.value : null,
                   grades: gradesRes.status === 'fulfilled' ? gradesRes.value : null,
+                  attendance: attendanceRes.status === 'fulfilled' ? attendanceRes.value : null,
                   notifications: noticesRes.status === 'fulfilled' ? noticesRes.value : null,
                   registeredCourses: registeredCoursesRes.status === 'fulfilled' ? registeredCoursesRes.value : null,
-                  ctdt: ctdtRes.status === 'fulfilled' ? ctdtRes.value : null,
                   serverTime: serverTimeRes.status === 'fulfilled' ? serverTimeRes.value : null
                 }
               };
@@ -167,10 +205,21 @@ export default defineConfig({
   plugins: [stuLiveBridgePlugin()],
   server: {
     port: 3000,
-    open: false
+    open: false,
+    watch: {
+      ignored: ['**/scripts/**', '**/scratch/**']
+    }
+  },
+  optimizeDeps: {
+    entries: ['index.html']
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      input: {
+        main: 'index.html'
+      }
+    }
   }
 });

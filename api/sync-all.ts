@@ -66,7 +66,19 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       'idpc': '0'
     };
 
-    const [infoRes, scheduleRes, tuitionRes, gradesRes, noticesRes, serverTimeRes, registeredCoursesRes, ctdtRes] = await Promise.allSettled([
+    const [
+      infoRes,
+      scheduleRes,
+      semesterScheduleRes,
+      tuitionSummaryRes,
+      tuitionDetailRes,
+      gradesRes,
+      noticesRes,
+      serverTimeRes,
+      registeredCoursesRes,
+      curriculumRes,
+      attendanceRes
+    ] = await Promise.allSettled([
       fetch('http://amis01.stu.edu.vn/api/dkmh/w-locsinhvieninfo', {
         method: 'POST', headers, body: JSON.stringify({})
       }).then(r => r.json()),
@@ -78,14 +90,27 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
           additional: { paging: { limit: 100, page: 1 }, ordering: [{ name: null, order_type: null }] }
         })
       }).then(r => r.json()),
-      fetch('http://amis01.stu.edu.vn/api/merchant/w-locdsphieubaohocphisinhvien', {
+      fetch('http://amis01.stu.edu.vn/api/sch/w-locdstkbhockytheodoituong', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ hoc_ky: 20261, loai_doi_tuong: 1, id_du_lieu: null })
+      }).then(r => r.json()),
+      fetch('http://amis01.stu.edu.vn/api/rms/w-locdstonghophocphisv', {
         method: 'POST', headers, body: JSON.stringify({})
       }).then(r => r.json()),
-      fetch('http://amis01.stu.edu.vn/api/srm/w-locketquadiemsinhvien', {
+      fetch('http://amis01.stu.edu.vn/api/rms/w-locdschitiethocphisvtheohocky', {
+        method: 'POST', headers, body: JSON.stringify({ filter: { hoc_ky: 20261 } })
+      }).then(r => r.json()),
+      fetch('http://amis01.stu.edu.vn/api/srm/w-locdsdiemsinhvien?hien_thi_mon_theo_hkdk=false', {
         method: 'POST', headers, body: JSON.stringify({})
       }).then(r => r.json()),
-      fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdsthongbao', {
-        method: 'POST', headers, body: JSON.stringify({})
+      fetch('http://amis01.stu.edu.vn/api/web/w-locdsthongbao', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          filter: { id: null, is_noi_dung: true, is_web: true },
+          additional: { paging: { limit: 100, page: 1 }, ordering: [{ name: 'ngay_gui', order_type: 1 }] }
+        })
       }).then(r => r.json()),
       fetch('http://amis01.stu.edu.vn/api/hsba/w-gettimeserver', {
         method: 'GET', headers
@@ -93,13 +118,25 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdskqdkmhsinhvien', {
         method: 'POST', headers, body: JSON.stringify({})
       }).then(r => r.json()),
-      fetch('http://amis01.stu.edu.vn/api/dkmh/w-locdsctdtsinhvien', {
-        method: 'POST', headers, body: JSON.stringify({})
+      fetch('http://amis01.stu.edu.vn/api/sch/w-locdsctdtsinhvien', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          filter: { loai_chuong_trinh_dao_tao: 1 },
+          additional: { paging: { limit: 500, page: 1 }, ordering: [{ name: null, order_type: null }] }
+        })
+      }).then(r => r.json()),
+      fetch('http://amis01.stu.edu.vn/api/schPlus/w-LocDuLieuSinhVienDiemDanh?nhhk=20261', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ nhhk: 20261 })
       }).then(r => r.json())
     ]);
 
     const svInfo = infoRes.status === 'fulfilled' ? infoRes.value?.data : null;
     const serverTime = serverTimeRes.status === 'fulfilled' ? serverTimeRes.value?.thoigianht : null;
+    const dsCamXem = Array.isArray(svInfo?.ds_menu_cam_xem) ? svInfo.ds_menu_cam_xem : [];
+    const officialNotice = dsCamXem.map((item: any) => item.ghi_chu).filter(Boolean).join(' | ');
 
     const resultPayload = {
       success: true,
@@ -133,16 +170,20 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         universityName: svInfo?.ten_truong || 'Trường Đại Học Công Nghệ Sài Gòn',
         email: (svInfo?.email && !svInfo.email.includes('@domain.com')) ? svInfo.email : '',
         email2: svInfo?.email2 || '',
-        advisor: svInfo?.ho_ten_cvht || ''
+        advisor: svInfo?.ho_ten_cvht || '',
+        officialNotice: officialNotice || svInfo?.ghi_chu || ''
       },
       rawLive: {
         info: svInfo,
+        curriculum: curriculumRes.status === 'fulfilled' ? curriculumRes.value : null,
         schedule: scheduleRes.status === 'fulfilled' ? scheduleRes.value : null,
-        tuition: tuitionRes.status === 'fulfilled' ? tuitionRes.value : null,
+        semesterSchedule: semesterScheduleRes.status === 'fulfilled' ? semesterScheduleRes.value : null,
+        tuitionSummary: tuitionSummaryRes.status === 'fulfilled' ? tuitionSummaryRes.value : null,
+        tuitionDetail: tuitionDetailRes.status === 'fulfilled' ? tuitionDetailRes.value : null,
         grades: gradesRes.status === 'fulfilled' ? gradesRes.value : null,
+        attendance: attendanceRes.status === 'fulfilled' ? attendanceRes.value : null,
         notifications: noticesRes.status === 'fulfilled' ? noticesRes.value : null,
         registeredCourses: registeredCoursesRes.status === 'fulfilled' ? registeredCoursesRes.value : null,
-        ctdt: ctdtRes.status === 'fulfilled' ? ctdtRes.value : null,
         serverTime: serverTimeRes.status === 'fulfilled' ? serverTimeRes.value : null
       }
     };
